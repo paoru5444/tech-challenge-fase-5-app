@@ -1,5 +1,5 @@
 import { FirebaseAuth } from "@/services/firebase-auth";
-import { UserRepositoryImpl } from "../domain/repositories/user-repository-impl";
+import { UserRepositoryImpl } from "../domain/repositories/user/user-repository-impl";
 
 import { Logout } from "@/domain/usecases/user/logout";
 import { SignIn } from "@/domain/usecases/user/sign-in";

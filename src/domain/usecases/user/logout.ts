@@ -1,4 +1,4 @@
-import { IUserRepository } from "../../repositories/user-repository";
+import { IUserRepository } from "../../repositories/user/user-repository";
 
 export class Logout {
   constructor(private repository: IUserRepository) {}

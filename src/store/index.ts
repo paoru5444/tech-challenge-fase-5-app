@@ -1,4 +1,5 @@
 import { authenticatorReducer } from "@/modules/auth/store/slices";
+import { taskReducer } from "@/modules/home/store/slices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
@@ -11,8 +12,6 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
-// import { homeReducer } from "@/modules/home/store/slices";
-// import { transactionReducer } from "../modules/transactions/store/slices";
 
 const persistConfig = {
   key: "root",
@@ -21,8 +20,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: authenticatorReducer,
-  // home: homeReducer,
-  // transaction: transactionReducer,
+  task: taskReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

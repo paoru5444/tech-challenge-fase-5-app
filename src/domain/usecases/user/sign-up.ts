@@ -1,5 +1,5 @@
 import { IUser, IUserCredentials, validatePassword } from "../../entities/user";
-import { IUserRepository } from "../../repositories/user-repository";
+import { IUserRepository } from "../../repositories/user/user-repository";
 
 export class SignUp {
   constructor(private repository: IUserRepository) {}

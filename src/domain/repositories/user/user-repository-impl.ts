@@ -1,6 +1,6 @@
 import { FirebaseAuth } from "@/services/firebase-auth";
-import { IUser, IUserCredentials } from "../../domain/entities/user";
 import { IUserRepository } from "../../domain/repositories/user-repository";
+import { IUser, IUserCredentials } from "../../entities/user";
 
 export class UserRepositoryImpl implements IUserRepository {
   constructor(private remote: FirebaseAuth) {}

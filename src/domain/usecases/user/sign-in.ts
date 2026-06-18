@@ -1,5 +1,5 @@
 import { IUserCredentials } from "../../entities/user";
-import { IUserRepository } from "../../repositories/user-repository";
+import { IUserRepository } from "../../repositories/user/user-repository";
 
 export class SignIn {
   constructor(private repository: IUserRepository) {}
