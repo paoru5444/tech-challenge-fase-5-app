@@ -1,5 +1,6 @@
 import { authenticatorReducer } from "@/modules/auth/store/slices";
 import { taskReducer } from "@/modules/home/store/slices";
+import { setupReducer } from "@/modules/setup/store/slices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
@@ -21,6 +22,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: authenticatorReducer,
   task: taskReducer,
+  setup: setupReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
