@@ -7,6 +7,21 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: "Início",
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="setup"
+        options={{
+          title: "Preferências",
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Perfil",
+          headerShown: false,
         }}
       />
     </Tabs>

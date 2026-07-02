@@ -1,6 +1,7 @@
 import * as actions from "@/modules/auth/store/actions";
+import Home from "@/modules/home/screens/home";
 import { useAppDispatch } from "@/store/hooks";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
@@ -10,6 +11,8 @@ export default function Index() {
     await dispatch(actions.logout());
     router.replace("/sign-in");
   };
+
+  return <Home  />
 
   return (
     <View>

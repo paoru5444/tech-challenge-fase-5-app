@@ -37,9 +37,7 @@ export function InputControl({
   return (
     <View
       style={{
-        gap: 6,
-        backgroundColor: "#fff",
-        paddingHorizontal: 16,
+        gap: 8,
         paddingVertical: disablePaddingVertical ? 0 : 16,
         borderRadius: 15,
         elevation: 5,
@@ -74,10 +72,16 @@ export function InputControl({
 }
 
 const styles = StyleSheet.create({
-  input: {},
+  input: {
+    height: 40,
+    borderRadius: 10,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: "#EAEAEA",
+  },
   label: {
-    fontSize: 12,
-    fontWeight: 600,
+    fontSize: 14,
+    fontWeight: 400,
   },
   errorMessage: {
     color: "red",

@@ -8,7 +8,8 @@
     "scheme": "senioreaseapp",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.anonymous.senior-ease-app"
     },
     "android": {
       "adaptiveIcon": {

@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface CredentialsFooterProps {
   onPress: () => void;
@@ -12,12 +12,22 @@ export default function CredentialsFooter({
   buttonLabel,
 }: CredentialsFooterProps) {
   return (
-    <View>
-      <Text>{title}</Text>
+    <View
+      style={{
+        gap: 20,
+        paddingHorizontal: 16,
+        alignItems: "center",
+      }}
+    >
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+        <Text>{title}</Text>
 
-      <Pressable onPress={onPress}>
-        <Text>{buttonLabel}</Text>
-      </Pressable>
+        <TouchableOpacity onPress={onPress}>
+          <Text style={{ fontWeight: 700, color: "#F67653" }}>
+            {buttonLabel}
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

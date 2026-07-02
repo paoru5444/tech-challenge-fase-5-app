@@ -1,5 +1,9 @@
 import { RootState } from "@/store";
 
+export const selecPreferences = (state: RootState) => {
+  return state.setup.setup;
+};
+
 export const getFontSize = (state: RootState) => {
   return state.setup.setup.fontSize;
 };

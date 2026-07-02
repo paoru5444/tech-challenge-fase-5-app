@@ -24,7 +24,6 @@ export function useSignUp() {
   async function signUp(credentials: IUserCredentials) {
     try {
       const result = await dispatch(actions.signUp(credentials));
-      console.log("result: ", result);
 
       if (actions.signUp.fulfilled.match(result)) {
         router.replace("/(tabs)");

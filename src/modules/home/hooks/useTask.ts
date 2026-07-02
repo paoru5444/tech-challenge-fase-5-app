@@ -13,7 +13,6 @@ export function useTask() {
 
   const addTask = async (data: FormTask) => {
     dispatch(actions.addTask({ userId: user?.uid ?? "", formData: data }));
-    console.log("Task adicionada com sucesso: ", data);
   };
 
   const deleteTask = async (taskId: string) => {

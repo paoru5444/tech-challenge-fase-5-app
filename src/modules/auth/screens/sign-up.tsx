@@ -1,6 +1,6 @@
 import Button from "@/components/ui/button";
 import { InputControl } from "@/components/ui/input-control";
-import { View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import CredentialsFooter from "../components/credentials-footer";
 import CredentialsHeader from "../components/credentials-header";
 import { useSignUp } from "../hooks/useSignUp";
@@ -10,12 +10,18 @@ export function SignUpScreen() {
     useSignUp();
 
   return (
-    <View>
+    <ScrollView contentContainerStyle={{ gap: 32 }}>
       <CredentialsHeader />
 
-      <View style={{ gap: 20 }}>
+      <View style={{ paddingHorizontal: 16 }}>
+        <Text style={{ fontSize: 24, fontWeight: "700", letterSpacing: -0.2 }}>
+          Cadastre-se
+        </Text>
+      </View>
+
+      <View style={{ paddingHorizontal: 16 }}>
         <InputControl
-          label="Email"
+          label="Digite seu email"
           placeholder="john.doe@mail.com"
           autoCapitalize="none"
           control={control}
@@ -24,8 +30,8 @@ export function SignUpScreen() {
         />
 
         <InputControl
-          label="Password"
-          placeholder="******"
+          label="Digite sua senha"
+          placeholder="✴︎✴︎✴︎✴︎✴︎✴︎✴︎✴︎✴︎"
           autoCapitalize="none"
           secureTextEntry
           control={control}
@@ -34,8 +40,8 @@ export function SignUpScreen() {
         />
 
         <InputControl
-          label="Confirm Password"
-          placeholder="******"
+          label="Confirme sua senha"
+          placeholder="✴︎✴︎✴︎✴︎✴︎✴︎✴︎✴︎✴︎"
           autoCapitalize="none"
           secureTextEntry
           control={control}
@@ -44,13 +50,15 @@ export function SignUpScreen() {
         />
       </View>
 
-      <Button text="Cadastre-se" onPress={handleSubmit(signUp)} />
+      <View style={{ paddingHorizontal: 16 }}>
+        <Button text="Cadastre-se" onPress={handleSubmit(signUp)} />
+      </View>
 
       <CredentialsFooter
         onPress={goToSignIn}
         title="Já tem uma conta?"
         buttonLabel="Fazer login"
       />
-    </View>
+    </ScrollView>
   );
 }
