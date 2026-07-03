@@ -1,14 +1,17 @@
 import PageHeader from "@/components/shared/page-header";
 import ScrollWrapper from "@/components/shared/scroll-wrapper";
-import Avatar from "@/components/ui/avatar";
+import TitleDisplay from "@/components/shared/title-display";
+import Badge from "@/components/ui/badge";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
+import Divider from "@/components/ui/divider";
 import * as actions from "@/modules/auth/store/actions";
 import { selectUser } from "@/modules/auth/store/selectors";
 import { selecPreferences } from "@/modules/setup/store/selector";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { router } from "expo-router";
-import { Text, View } from "react-native";
+import { useMemo } from "react";
+import { FlatList, Text, View } from "react-native";
 
 export default function ProfileScreen() {
   const user = useAppSelector(selectUser);
@@ -31,7 +34,16 @@ export default function ProfileScreen() {
     soundConfirmation: "Conformação por som",
   };
 
-  const preferencesList = Object.entries(preferences);
+  const preferencesList = useMemo(() => {
+    const normalizedPreferences = {
+      ...preferences,
+      ...preferences.feedback,
+    };
+
+    delete normalizedPreferences.feedback;
+
+    return Object.entries(normalizedPreferences);
+  }, [preferences]);
 
   return (
     <ScrollWrapper
@@ -45,43 +57,24 @@ export default function ProfileScreen() {
       contentContainerStyle={{ paddingVertical: 32, gap: 16 }}
       content={{ paddingHorizontal: 20, paddingVertical: 32 }}
     >
-      <Card
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
-        <Avatar user={user} />
-
-        <View style={{}}>
-          <Text style={{ fontWeight: 700 }}>João Lucas Pereira de Almeida</Text>
-          <Text>40 anos</Text>
-        </View>
+      <Card>
+        <TitleDisplay
+          user={user}
+          title="João Lucas Pereira de Almeida"
+          description="40 anos"
+        />
       </Card>
 
       <Card style={{ gap: 32 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          <Avatar user={user} />
+        <TitleDisplay letter="P" title="Preferências ativas" />
 
-          <View style={{}}>
-            <Text style={{ fontWeight: 700 }}>Preferências ativas</Text>
-          </View>
-        </View>
-
-        <View style={{ gap: 16 }}>
-          {preferencesList.map(([key, value]) => {
-            const isObject = typeof value === "object";
-
-            const name = isObject
-              ? preferencesNames[value[key]]
-              : preferencesNames[key];
+        <FlatList
+          data={preferencesList}
+          keyExtractor={([key]) => key}
+          scrollEnabled={false}
+          ItemSeparatorComponent={() => <Divider size={12} />}
+          renderItem={({ item: [key, value] }) => {
+            const name = preferencesNames[key as keyof typeof preferencesNames];
 
             return (
               <View
@@ -93,21 +86,11 @@ export default function ProfileScreen() {
               >
                 <Text style={{ fontWeight: 700 }}>{name}</Text>
 
-                <View
-                  style={{
-                    backgroundColor: "#D13F62",
-                    padding: 4,
-                    borderRadius: 16,
-                  }}
-                >
-                  <Text style={{ color: "#FFFFFF" }}>
-                    {isObject ? value[key] : value}
-                  </Text>
-                </View>
+                <Badge text={String(value)} />
               </View>
             );
-          })}
-        </View>
+          }}
+        />
       </Card>
     </ScrollWrapper>
   );
