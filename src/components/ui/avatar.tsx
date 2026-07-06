@@ -1,11 +1,12 @@
 import { IUser } from "@/domain/entities/user";
-import { Text, View } from "react-native";
+import { Text, View, ViewProps } from "react-native";
 export interface AvatarProps {
   user?: IUser | null;
   letter?: string;
+  containerStyle?: ViewProps;
 }
 
-export default function Avatar({ user, letter }: AvatarProps) {
+export default function Avatar({ user, letter, containerStyle }: AvatarProps) {
   const userFirstLetter = user?.displayName?.split("")[0] || "U";
   return (
     <View
@@ -16,6 +17,7 @@ export default function Avatar({ user, letter }: AvatarProps) {
         backgroundColor: "#F67653",
         alignItems: "center",
         justifyContent: "center",
+        ...containerStyle,
       }}
     >
       <Text

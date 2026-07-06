@@ -1,10 +1,11 @@
 import { AvatarProps } from "@/components/ui/avatar";
-import { Text, View } from "react-native";
+import { Text, View, ViewStyle } from "react-native";
 import Avatar from "../ui/avatar";
 
 interface TitleDisplayProps extends AvatarProps {
   title?: string;
   description?: string;
+  containerStyle?: ViewStyle;
 }
 
 export default function TitleDisplay({
@@ -12,6 +13,7 @@ export default function TitleDisplay({
   letter,
   title,
   description,
+  containerStyle,
 }: TitleDisplayProps) {
   return (
     <View
@@ -21,9 +23,13 @@ export default function TitleDisplay({
         gap: 10,
       }}
     >
-      {letter && !user && <Avatar letter={letter} />}
+      {letter && !user && (
+        <Avatar letter={letter} containerStyle={containerStyle} />
+      )}
 
-      {!letter && user && <Avatar user={user} />}
+      {!letter && user && (
+        <Avatar user={user} containerStyle={containerStyle} />
+      )}
 
       <View style={{ gap: 4 }}>
         {title && <Text style={{ fontWeight: 700 }}>{title}</Text>}

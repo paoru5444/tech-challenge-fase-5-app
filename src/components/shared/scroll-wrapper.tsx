@@ -25,8 +25,8 @@ export default function ScrollWrapper({
       <View style={{ ...headerContainerStyle }}>{header}</View>
 
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          flex: 1,
           ...contentContainerStyle,
         }}
       >

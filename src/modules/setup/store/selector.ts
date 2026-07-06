@@ -4,22 +4,22 @@ export const selecPreferences = (state: RootState) => {
   return state.setup.setup;
 };
 
-export const getFontSize = (state: RootState) => {
+export const selectFontSize = (state: RootState) => {
   return state.setup.setup.fontSize;
 };
 
-export const getContrastLevel = (state: RootState) => {
+export const selectContrastLevel = (state: RootState) => {
   return state.setup.setup.contrastLevel;
 };
 
-export const getSpacementSize = (state: RootState) => {
+export const selectSpacementSize = (state: RootState) => {
   return state.setup.setup.spacementSize;
 };
 
-export const getInterfaceMode = (state: RootState) => {
+export const selectInterfaceMode = (state: RootState) => {
   return state.setup.setup.interfaceMode;
 };
 
-export const getFeedback = (state: RootState) => {
+export const selectFeedback = (state: RootState) => {
   return state.setup.setup.feedback;
 };

@@ -13,5 +13,6 @@ export const updateSpacementSize = createAction<SetupType["spacementSize"]>(
 export const updateInterfaceMode = createAction<SetupType["interfaceMode"]>(
   "setup/updateInterfaceMode",
 );
-export const updateFeedback =
-  createAction<SetupType["feedback"]>("setup/feedback");
+export const updateFeedback = createAction<Partial<SetupType["feedback"]>>(
+  "setup/feedback",
+);
