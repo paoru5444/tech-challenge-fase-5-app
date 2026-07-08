@@ -1,6 +1,9 @@
 import { FormTask } from "@/domain/entities/task";
 import { selectUser } from "@/modules/auth/store/selectors";
+import { taskSchema } from "@/schemas/task-schema";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import * as actions from "../store/actions";
 
 export function useTask() {
@@ -29,10 +32,25 @@ export function useTask() {
     );
   };
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<any>({
+    resolver: zodResolver(taskSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+    },
+  });
+
   return {
     getTasks,
     addTask,
     deleteTask,
     updateTask,
+    control,
+    errors,
+    handleSubmit,
   };
 }
