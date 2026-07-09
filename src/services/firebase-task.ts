@@ -33,7 +33,7 @@ export class FirebaseTask {
 
   async addTask(userId: string, task: ITask): Promise<ITask> {
     const docRef = doc(this.getRef(userId));
-    await setDoc(docRef, task);
+    await setDoc(docRef, { ...task, checked: false });
     return { ...task, id: docRef.id };
   }
 

@@ -1,20 +1,32 @@
 import Banner from "@/components/shared/banner";
 import ScrollWrapper from "@/components/shared/scroll-wrapper";
+import TaskCard from "@/components/shared/task-card";
 import Button from "@/components/ui/button";
-import Card from "@/components/ui/card";
 import Header from "@/components/ui/header";
 import { InputControl } from "@/components/ui/input-control";
 import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useTask } from "../hooks/useTask";
 
 export default function Home() {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
-  const { control, errors, handleSubmit, addTask, deleteTask } = useTask();
+  const {
+    control,
+    errors,
+    handleSubmit,
+    addTask,
+    deleteTask,
+    getTasks,
+    tasks,
+  } = useTask();
 
   const sheetRef = useRef<BottomSheet>(null);
+
+  useEffect(() => {
+    getTasks();
+  }, []);
 
   return (
     <>
@@ -27,76 +39,7 @@ export default function Home() {
 
         <Text>Minhas atividades</Text>
 
-        <Card style={{ gap: 12 }}>
-          <TouchableOpacity
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-            onPress={() => setIsCollapsed((prev) => !prev)}
-          >
-            <View>
-              <Text>Módulo Testes Automatizados</Text>
-              <Text>Primeiro módulo da fase 5 da Pós Tech</Text>
-            </View>
-
-            <Text>{isCollapsed ? "Abrir" : "Fechar"}</Text>
-          </TouchableOpacity>
-
-          {!isCollapsed && (
-            <>
-              {/* <ProgressBar progress={50} />
-
-              <View
-                style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
-              >
-                <Checkbox checked={true} />
-                <Text>Introdução à biblioteca Jest</Text>
-              </View>
-
-              <View
-                style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
-              >
-                <Checkbox checked={false} />
-                <Text>Introdução à biblioteca Jest</Text>
-              </View> */}
-
-              <View />
-
-              <View style={{ gap: 8 }}>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: "#39A304",
-                    height: 30,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 16,
-                  }}
-                >
-                  <Text style={{ color: "#FFFFFF", fontWeight: 600 }}>
-                    Concluir atividade
-                  </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  onPress={() => deleteTask("1")}
-                  style={{
-                    backgroundColor: "#F05069",
-                    height: 30,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 16,
-                  }}
-                >
-                  <Text style={{ color: "#FFFFFF", fontWeight: 600 }}>
-                    Deletar atividade
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </>
-          )}
-        </Card>
+        {tasks.length && tasks.map((task) => <TaskCard task={task} />)}
       </ScrollWrapper>
 
       <TouchableOpacity
@@ -152,8 +95,8 @@ export default function Home() {
               label="Nome da atividade"
               placeholder="Assistir ao módulo 01*"
               control={control}
-              error={errors["name"]}
-              name="name"
+              error={errors["title"]}
+              name="title"
               disablePaddingVertical
             />
 

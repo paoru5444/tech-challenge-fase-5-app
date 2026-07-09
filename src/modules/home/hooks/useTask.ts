@@ -5,10 +5,12 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as actions from "../store/actions";
+import { selectTasks } from "../store/selectors";
 
 export function useTask() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const tasks = useAppSelector(selectTasks);
 
   const getTasks = async () => {
     dispatch(actions.getTasks(user?.uid ?? ""));
@@ -39,7 +41,7 @@ export function useTask() {
   } = useForm<any>({
     resolver: zodResolver(taskSchema),
     defaultValues: {
-      name: "",
+      title: "",
       description: "",
     },
   });
@@ -52,5 +54,6 @@ export function useTask() {
     control,
     errors,
     handleSubmit,
+    tasks,
   };
 }
