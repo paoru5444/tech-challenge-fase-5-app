@@ -14,7 +14,9 @@ export default function Badge({ text }: BadgeProps) {
         borderRadius: 16,
       }}
     >
-      <Text style={{ color: "#FFFFFF" }}>{text}</Text>
+      <Text style={{ color: "#FFFFFF", fontSize: 10, fontWeight: 600 }}>
+        {text}
+      </Text>
     </View>
   );
 }

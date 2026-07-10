@@ -5,22 +5,13 @@ import Button from "@/components/ui/button";
 import Header from "@/components/ui/header";
 import { InputControl } from "@/components/ui/input-control";
 import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
-import { useEffect, useRef, useState } from "react";
+import Feather from "@react-native-vector-icons/feather";
+import { useEffect, useMemo, useRef } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useTask } from "../hooks/useTask";
 
 export default function Home() {
-  const [isCollapsed, setIsCollapsed] = useState(true);
-
-  const {
-    control,
-    errors,
-    handleSubmit,
-    addTask,
-    deleteTask,
-    getTasks,
-    tasks,
-  } = useTask();
+  const { control, errors, handleSubmit, addTask, getTasks, tasks } = useTask();
 
   const sheetRef = useRef<BottomSheet>(null);
 
@@ -28,18 +19,31 @@ export default function Home() {
     getTasks();
   }, []);
 
+  const pendingTasks = useMemo(
+    () => tasks.filter((task) => task.checked === false) || [],
+    [tasks],
+  );
+
   return (
     <>
       <ScrollWrapper
         header={<Header />}
-        contentContainerStyle={{ marginVertical: 32, gap: 8 }}
+        contentContainerStyle={{ gap: 32 }}
         content={{ paddingHorizontal: 20, paddingTop: 32 }}
       >
-        <Banner title="Atividades pendentes" value="3" />
+        <Banner
+          title="Atividades pendentes"
+          value={String(tasks.length || "")}
+        />
 
-        <Text>Minhas atividades</Text>
+        <View style={{ gap: 16 }}>
+          <Text style={{ fontSize: 16, fontWeight: 600, letterSpacing: -0.4 }}>
+            Minhas atividades
+          </Text>
 
-        {tasks.length && tasks.map((task) => <TaskCard task={task} />)}
+          {pendingTasks.length &&
+            pendingTasks.map((task) => <TaskCard task={task} key={task.id} />)}
+        </View>
       </ScrollWrapper>
 
       <TouchableOpacity
@@ -57,7 +61,7 @@ export default function Home() {
         }}
       >
         <Text style={{ fontSize: 40, fontWeight: 300, color: "#FFFFFF" }}>
-          +
+          <Feather name="plus" color={"#FFFFFF"} size={28} />
         </Text>
       </TouchableOpacity>
 

@@ -97,8 +97,9 @@ export default function SetupScreen() {
           }
         />
       }
-      contentContainerStyle={{ marginVertical: 32, gap: 8 }}
+      contentContainerStyle={{ gap: 16 }}
       content={{ paddingHorizontal: 20, paddingTop: 32 }}
+      headerContainerStyle={{ height: 50 }}
     >
       <SetupCard<"fontSize">
         list={["small", "default", "big"]}
@@ -149,16 +150,22 @@ export default function SetupScreen() {
               key={item.title}
               onPress={() => onSelectFeedback(item)}
               style={{
-                height: 40,
-                backgroundColor: "#EAEAEA",
+                minHeight: 40,
+
                 padding: 6,
                 borderRadius: 10,
                 flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              <View style={{ width: "80%" }}>
-                <Text>{item.title}</Text>
-                <Text>{item.description}</Text>
+              <View style={{ flex: 1, width: "100%" }}>
+                <Text style={{ fontSize: 12, fontWeight: 700 }}>
+                  {item.title}
+                </Text>
+                <Text style={{ fontSize: 12, flexShrink: 1 }}>
+                  {item.description}
+                </Text>
               </View>
 
               <Switch

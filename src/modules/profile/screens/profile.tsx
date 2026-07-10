@@ -5,6 +5,7 @@ import Badge from "@/components/ui/badge";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Divider from "@/components/ui/divider";
+import { preferencesNames } from "@/constants/conts";
 import * as actions from "@/modules/auth/store/actions";
 import { selectUser } from "@/modules/auth/store/selectors";
 import { selecPreferences } from "@/modules/setup/store/selector";
@@ -24,7 +25,7 @@ export default function ProfileScreen() {
     router.replace("/sign-in");
   };
 
-  const preferencesNames = {
+  const preferencesTitleNames = {
     contrastLevel: "Contraste",
     fontSize: "Tamanho da fonte",
     spacementSize: "Espaçamento",
@@ -45,6 +46,8 @@ export default function ProfileScreen() {
     return Object.entries(normalizedPreferences);
   }, [preferences]);
 
+  console.log("preferencesList: ", preferencesList);
+
   return (
     <ScrollWrapper
       header={
@@ -54,8 +57,9 @@ export default function ProfileScreen() {
         />
       }
       footer={<Button text={"Sair da conta"} onPress={logout} />}
-      contentContainerStyle={{ paddingVertical: 32, gap: 16 }}
-      content={{ paddingHorizontal: 20, paddingVertical: 32 }}
+      contentContainerStyle={{ gap: 16 }}
+      content={{ paddingHorizontal: 20, paddingTop: 32 }}
+      headerContainerStyle={{ height: 50 }}
     >
       <Card>
         <TitleDisplay
@@ -74,7 +78,11 @@ export default function ProfileScreen() {
           scrollEnabled={false}
           ItemSeparatorComponent={() => <Divider size={12} />}
           renderItem={({ item: [key, value] }) => {
-            const name = preferencesNames[key as keyof typeof preferencesNames];
+            const name =
+              preferencesTitleNames[key as keyof typeof preferencesTitleNames];
+
+            console.log("value: ", value);
+            const badgeName = preferencesNames[value];
 
             return (
               <View
@@ -84,9 +92,9 @@ export default function ProfileScreen() {
                   justifyContent: "space-between",
                 }}
               >
-                <Text style={{ fontWeight: 700 }}>{name}</Text>
+                <Text style={{ fontWeight: 700, fontSize: 12 }}>{name}</Text>
 
-                <Badge text={String(value)} />
+                <Badge text={badgeName} />
               </View>
             );
           }}

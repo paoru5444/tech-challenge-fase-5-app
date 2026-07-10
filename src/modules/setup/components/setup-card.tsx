@@ -1,9 +1,10 @@
 import TitleDisplay from "@/components/shared/title-display";
 import Card from "@/components/ui/card";
+import { preferencesNames } from "@/constants/conts";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SetupType } from "../store/slices";
 
-type SetupListKey = Exclude<keyof SetupType, "feedback">;
+export type SetupListKey = Exclude<keyof SetupType, "feedback">;
 
 interface SetupCardProps<k extends SetupListKey> {
   list: SetupType[k][];
@@ -46,11 +47,11 @@ export default function SetupCard<k extends SetupListKey>({
                 justifyContent: "flex-end",
                 padding: 6,
                 borderRadius: 10,
-                borderWidth: isCurrentItem ? 2 : 1,
+                borderWidth: isCurrentItem ? 3 : 1,
                 borderColor: isCurrentItem ? "#39A304" : "#EAEAEA",
               }}
             >
-              <Text>{item}</Text>
+              <Text style={{ fontSize: 12 }}>{preferencesNames[item]}</Text>
             </TouchableOpacity>
           );
         })}

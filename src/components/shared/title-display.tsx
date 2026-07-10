@@ -31,10 +31,12 @@ export default function TitleDisplay({
         <Avatar user={user} containerStyle={containerStyle} />
       )}
 
-      <View style={{ gap: 4 }}>
-        {title && <Text style={{ fontWeight: 700 }}>{title}</Text>}
+      <View style={{ gap: 4, width: "90%" }}>
+        {title && (
+          <Text style={{ fontSize: 12, fontWeight: 700 }}>{title}</Text>
+        )}
 
-        {description && <Text>{description}</Text>}
+        {description && <Text style={{ fontSize: 12 }}>{description}</Text>}
       </View>
     </View>
   );

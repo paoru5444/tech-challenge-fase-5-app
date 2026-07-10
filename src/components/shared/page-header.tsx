@@ -7,9 +7,11 @@ interface PageHeader {
 
 export default function PageHeader({ title, description }: PageHeader) {
   return (
-    <View>
-      <Text>{title}</Text>
-      <Text>{description}</Text>
+    <View style={{ gap: 4 }}>
+      <Text style={{ fontSize: 16, fontWeight: 700, letterSpacing: -0.2 }}>
+        {title}
+      </Text>
+      <Text style={{ fontSize: 12 }}>{description}</Text>
     </View>
   );
 }

@@ -1,3 +1,4 @@
+import Feather from "@react-native-vector-icons/feather";
 import { Tabs } from "expo-router";
 
 export default function TabsLayout() {
@@ -8,6 +9,9 @@ export default function TabsLayout() {
         options={{
           title: "Início",
           headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Feather name="home" size={22} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
@@ -15,6 +19,9 @@ export default function TabsLayout() {
         options={{
           title: "Preferências",
           headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Feather name="sliders" size={22} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
@@ -22,6 +29,9 @@ export default function TabsLayout() {
         options={{
           title: "Perfil",
           headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Feather name="user" size={22} color={color} />
+          ),
         }}
       />
     </Tabs>
