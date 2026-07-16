@@ -1,9 +1,10 @@
 import Banner from "@/components/shared/banner";
+import PageHeader from "@/components/shared/page-header";
 import ScrollWrapper from "@/components/shared/scroll-wrapper";
 import TaskCard from "@/components/shared/task-card";
 import Button from "@/components/ui/button";
-import Header from "@/components/ui/header";
 import { InputControl } from "@/components/ui/input-control";
+import Typography from "@/components/ui/typography";
 import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
 import Feather from "@react-native-vector-icons/feather";
 import { useEffect, useMemo, useRef } from "react";
@@ -27,7 +28,12 @@ export default function Home() {
   return (
     <>
       <ScrollWrapper
-        header={<Header />}
+        header={
+          <PageHeader
+            title={"Atividades"}
+            description={"Suas metas e objetivos listados aqui"}
+          />
+        }
         contentContainerStyle={{ gap: 32 }}
         content={{ paddingHorizontal: 20, paddingTop: 32 }}
       >
@@ -37,9 +43,7 @@ export default function Home() {
         />
 
         <View style={{ gap: 16 }}>
-          <Text style={{ fontSize: 16, fontWeight: 600, letterSpacing: -0.4 }}>
-            Minhas atividades
-          </Text>
+          <Typography variant="subtitle">Minhas atividades</Typography>
 
           {pendingTasks.length &&
             pendingTasks.map((task) => <TaskCard task={task} key={task.id} />)}
@@ -90,9 +94,7 @@ export default function Home() {
             gap: 16,
           }}
         >
-          <Text style={{ fontSize: 20, fontWeight: 700, letterSpacing: -0.2 }}>
-            Nova atividade
-          </Text>
+          <Typography variant="h2">Nova atividade</Typography>
 
           <View style={{ width: "100%", gap: 24 }}>
             <InputControl

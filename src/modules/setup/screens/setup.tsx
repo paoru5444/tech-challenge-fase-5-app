@@ -2,9 +2,10 @@ import PageHeader from "@/components/shared/page-header";
 import ScrollWrapper from "@/components/shared/scroll-wrapper";
 import TitleDisplay from "@/components/shared/title-display";
 import Card from "@/components/ui/card";
+import Typography from "@/components/ui/typography";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useCallback } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Switch } from "react-native-switch";
 import SetupCard from "../components/setup-card";
 import * as actions from "../store/actions";
@@ -160,12 +161,10 @@ export default function SetupScreen() {
               }}
             >
               <View style={{ flex: 1, width: "100%" }}>
-                <Text style={{ fontSize: 12, fontWeight: 700 }}>
-                  {item.title}
-                </Text>
-                <Text style={{ fontSize: 12, flexShrink: 1 }}>
+                <Typography variant="label">{item.title}</Typography>
+                <Typography variant="bodySmall" style={{ flexShrink: 1 }}>
                   {item.description}
-                </Text>
+                </Typography>
               </View>
 
               <Switch

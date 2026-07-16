@@ -1,7 +1,8 @@
 import TitleDisplay from "@/components/shared/title-display";
 import Card from "@/components/ui/card";
+import Typography from "@/components/ui/typography";
 import { preferencesNames } from "@/constants/conts";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { SetupType } from "../store/slices";
 
 export type SetupListKey = Exclude<keyof SetupType, "feedback">;
@@ -51,7 +52,9 @@ export default function SetupCard<k extends SetupListKey>({
                 borderColor: isCurrentItem ? "#39A304" : "#EAEAEA",
               }}
             >
-              <Text style={{ fontSize: 12 }}>{preferencesNames[item]}</Text>
+              <Typography variant="bodySmall">
+                {preferencesNames[item]}
+              </Typography>
             </TouchableOpacity>
           );
         })}

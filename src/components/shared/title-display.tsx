@@ -1,6 +1,7 @@
 import { AvatarProps } from "@/components/ui/avatar";
-import { Text, View, ViewStyle } from "react-native";
+import { View, ViewStyle } from "react-native";
 import Avatar from "../ui/avatar";
+import Typography from "../ui/typography";
 
 interface TitleDisplayProps extends AvatarProps {
   title?: string;
@@ -32,11 +33,11 @@ export default function TitleDisplay({
       )}
 
       <View style={{ gap: 4, width: "90%" }}>
-        {title && (
-          <Text style={{ fontSize: 12, fontWeight: 700 }}>{title}</Text>
-        )}
+        {title && <Typography variant="label">{title}</Typography>}
 
-        {description && <Text style={{ fontSize: 12 }}>{description}</Text>}
+        {description && (
+          <Typography variant="bodySmall">{description}</Typography>
+        )}
       </View>
     </View>
   );

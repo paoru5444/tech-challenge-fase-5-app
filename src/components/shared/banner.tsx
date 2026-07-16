@@ -1,4 +1,5 @@
-import { ImageBackground, Text, View } from "react-native";
+import { ImageBackground, View } from "react-native";
+import Typography from "../ui/typography";
 
 interface BannerProps {
   value?: string;
@@ -29,15 +30,15 @@ export default function Banner({ title, value }: BannerProps) {
           backgroundColor: "#FFFFFF40",
         }}
       >
-        <Text style={{ color: "#FFFFFF", fontSize: 28, fontWeight: 700 }}>
+        <Typography variant="h1" style={{ color: "#FFFFFF" }}>
           {value}
-        </Text>
+        </Typography>
       </View>
 
       <View>
-        <Text style={{ color: "#FFFFFF", fontSize: 18, fontWeight: 700 }}>
+        <Typography variant="h2" style={{ color: "#FFFFFF" }}>
           {title}
-        </Text>
+        </Typography>
       </View>
     </ImageBackground>
   );

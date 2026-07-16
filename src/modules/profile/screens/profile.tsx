@@ -5,6 +5,7 @@ import Badge from "@/components/ui/badge";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Divider from "@/components/ui/divider";
+import Typography from "@/components/ui/typography";
 import { preferencesNames } from "@/constants/conts";
 import * as actions from "@/modules/auth/store/actions";
 import { selectUser } from "@/modules/auth/store/selectors";
@@ -12,7 +13,7 @@ import { selecPreferences } from "@/modules/setup/store/selector";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { router } from "expo-router";
 import { useMemo } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 
 export default function ProfileScreen() {
   const user = useAppSelector(selectUser);
@@ -45,8 +46,6 @@ export default function ProfileScreen() {
 
     return Object.entries(normalizedPreferences);
   }, [preferences]);
-
-  console.log("preferencesList: ", preferencesList);
 
   return (
     <ScrollWrapper
@@ -81,7 +80,6 @@ export default function ProfileScreen() {
             const name =
               preferencesTitleNames[key as keyof typeof preferencesTitleNames];
 
-            console.log("value: ", value);
             const badgeName = preferencesNames[value];
 
             return (
@@ -92,7 +90,7 @@ export default function ProfileScreen() {
                   justifyContent: "space-between",
                 }}
               >
-                <Text style={{ fontWeight: 700, fontSize: 12 }}>{name}</Text>
+                <Typography variant="label">{name}</Typography>
 
                 <Badge text={badgeName} />
               </View>

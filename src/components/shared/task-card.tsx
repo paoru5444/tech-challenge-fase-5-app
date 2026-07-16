@@ -2,10 +2,11 @@ import { ITask } from "@/domain/entities/task";
 import { useTask } from "@/modules/home/hooks/useTask";
 import { Feather } from "@react-native-vector-icons/feather";
 import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import Card from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { ProgressBar } from "../ui/progress-bar";
+import Typography from "../ui/typography";
 
 interface TaskCardProps {
   task: ITask;
@@ -27,8 +28,8 @@ export default function TaskCard({ task }: TaskCardProps) {
         onPress={() => setIsCollapsed((prev) => !prev)}
       >
         <View>
-          <Text style={{ fontSize: 12, fontWeight: 700 }}>{title}</Text>
-          <Text style={{ fontSize: 12 }}>{description}</Text>
+          <Typography variant="label">{title}</Typography>
+          <Typography variant="bodySmall">{description}</Typography>
         </View>
 
         <Feather
@@ -48,14 +49,18 @@ export default function TaskCard({ task }: TaskCardProps) {
                 style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
               >
                 <Checkbox checked={true} />
-                <Text>Introdução à biblioteca Jest</Text>
+                <Typography variant="body">
+                  Introdução à biblioteca Jest
+                </Typography>
               </View>
 
               <View
                 style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
               >
                 <Checkbox checked={false} />
-                <Text>Introdução à biblioteca Jest</Text>
+                <Typography variant="body">
+                  Introdução à biblioteca Jest
+                </Typography>
               </View>
             </>
           )}
@@ -76,9 +81,9 @@ export default function TaskCard({ task }: TaskCardProps) {
                   borderRadius: 16,
                 }}
               >
-                <Text style={{ color: "#FFFFFF", fontWeight: 600 }}>
+                <Typography variant="body" style={{ color: "#FFFFFF", fontWeight: "600" }}>
                   Concluir atividade
-                </Text>
+                </Typography>
               </TouchableOpacity>
             )}
 
@@ -92,9 +97,9 @@ export default function TaskCard({ task }: TaskCardProps) {
                 borderRadius: 16,
               }}
             >
-              <Text style={{ color: "#FFFFFF", fontWeight: 600 }}>
+              <Typography variant="body" style={{ color: "#FFFFFF", fontWeight: "600" }}>
                 Deletar atividade
-              </Text>
+              </Typography>
             </TouchableOpacity>
           </View>
         </>

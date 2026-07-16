@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import Typography from "../ui/typography";
 
 interface PageHeader {
   title: string;
@@ -8,10 +9,8 @@ interface PageHeader {
 export default function PageHeader({ title, description }: PageHeader) {
   return (
     <View style={{ gap: 4 }}>
-      <Text style={{ fontSize: 16, fontWeight: 700, letterSpacing: -0.2 }}>
-        {title}
-      </Text>
-      <Text style={{ fontSize: 12 }}>{description}</Text>
+      <Typography variant="title">{title}</Typography>
+      <Typography variant="bodySmall">{description}</Typography>
     </View>
   );
 }

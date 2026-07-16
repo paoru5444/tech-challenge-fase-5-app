@@ -1,4 +1,5 @@
-import { Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
+import Typography from "./typography";
 
 export default function Button({ text, onPress }) {
   return (
@@ -13,9 +14,9 @@ export default function Button({ text, onPress }) {
         justifyContent: "center",
       }}
     >
-      <Text style={{ color: "#FFFFFF", fontWeight: "700", fontSize: 16 }}>
+      <Typography variant="title" style={{ color: "#FFFFFF" }}>
         {text}
-      </Text>
+      </Typography>
     </TouchableOpacity>
   );
 }

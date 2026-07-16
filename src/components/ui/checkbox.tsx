@@ -1,5 +1,6 @@
 import { theme } from "@/constants/theme";
 import { Pressable, StyleSheet, Text, View, ViewStyle } from "react-native";
+import Typography from "./typography";
 
 interface CheckboxProps {
   checked: boolean;
@@ -49,7 +50,8 @@ export function Checkbox({
       </View>
 
       {label ? (
-        <Text
+        <Typography
+          variant="body"
           style={[
             styles.label,
             disabled && styles.labelDisabled,
@@ -57,7 +59,7 @@ export function Checkbox({
           ]}
         >
           {label}
-        </Text>
+        </Typography>
       ) : null}
     </Pressable>
   );
@@ -89,7 +91,6 @@ const styles = StyleSheet.create({
     fontWeight: theme.typography.fontWeight.bold as any,
   },
   label: {
-    ...theme.typography.textStyles.body,
     color: theme.colors.text.primary,
     marginLeft: theme.spacing.sm,
     flexShrink: 1,

@@ -1,4 +1,5 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import Typography from "@/components/ui/typography";
+import { TouchableOpacity, View } from "react-native";
 
 interface CredentialsFooterProps {
   onPress: () => void;
@@ -20,12 +21,12 @@ export default function CredentialsFooter({
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-        <Text>{title}</Text>
+        <Typography variant="body">{title}</Typography>
 
         <TouchableOpacity onPress={onPress}>
-          <Text style={{ fontWeight: 700, color: "#F67653" }}>
+          <Typography variant="body" style={{ fontWeight: "700", color: "#F67653" }}>
             {buttonLabel}
-          </Text>
+          </Typography>
         </TouchableOpacity>
       </View>
     </View>

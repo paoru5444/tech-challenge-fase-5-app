@@ -1,6 +1,7 @@
 import { theme } from "@/constants/theme";
 import { useEffect, useRef } from "react";
-import { Animated, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { Animated, StyleSheet, View, ViewStyle } from "react-native";
+import Typography from "./typography";
 
 type ProgressBarColor = "success" | "primary" | "danger";
 
@@ -77,7 +78,11 @@ export function ProgressBar({
         />
       </View>
 
-      {showLabel && <Text style={styles.label}>{Math.round(clamped)}%</Text>}
+      {showLabel && (
+        <Typography variant="caption" style={styles.label}>
+          {Math.round(clamped)}%
+        </Typography>
+      )}
     </View>
   );
 }
@@ -96,7 +101,6 @@ const styles = StyleSheet.create({
     // largura controlada via Animated.Value
   },
   label: {
-    ...theme.typography.textStyles.caption,
     color: theme.colors.text.secondary,
     marginLeft: theme.spacing.sm,
     minWidth: 32,

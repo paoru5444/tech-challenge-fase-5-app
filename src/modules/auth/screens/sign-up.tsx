@@ -1,6 +1,7 @@
 import Button from "@/components/ui/button";
 import { InputControl } from "@/components/ui/input-control";
-import { ScrollView, Text, View } from "react-native";
+import Typography from "@/components/ui/typography";
+import { ScrollView, View } from "react-native";
 import CredentialsFooter from "../components/credentials-footer";
 import CredentialsHeader from "../components/credentials-header";
 import { useSignUp } from "../hooks/useSignUp";
@@ -14,9 +15,7 @@ export function SignUpScreen() {
       <CredentialsHeader />
 
       <View style={{ paddingHorizontal: 16 }}>
-        <Text style={{ fontSize: 24, fontWeight: "700", letterSpacing: -0.2 }}>
-          Cadastre-se
-        </Text>
+        <Typography variant="h1">Cadastre-se</Typography>
       </View>
 
       <View style={{ paddingHorizontal: 16 }}>

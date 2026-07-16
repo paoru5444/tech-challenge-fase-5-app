@@ -1,5 +1,6 @@
 import { IUser } from "@/domain/entities/user";
-import { Text, View, ViewProps } from "react-native";
+import { View, ViewProps } from "react-native";
+import Typography from "./typography";
 export interface AvatarProps {
   user?: IUser | null;
   letter?: string;
@@ -20,17 +21,13 @@ export default function Avatar({ user, letter, containerStyle }: AvatarProps) {
         ...containerStyle,
       }}
     >
-      <Text
-        style={{
-          fontSize: 16,
-          fontWeight: 700,
-          letterSpacing: -0.4,
-          color: "#FFFFFF",
-        }}
+      <Typography
+        variant="subtitle"
+        style={{ fontWeight: "700", color: "#FFFFFF" }}
       >
         {user && !letter && userFirstLetter}
         {letter && !user && letter}
-      </Text>
+      </Typography>
     </View>
   );
 }

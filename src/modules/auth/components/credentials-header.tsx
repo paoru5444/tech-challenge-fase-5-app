@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import Typography from "@/components/ui/typography";
+import { View } from "react-native";
 
 export default function CredentialsHeader() {
   return (
@@ -11,7 +12,7 @@ export default function CredentialsHeader() {
         backgroundColor: "#F67653",
       }}
     >
-      <Text>Header Image</Text>
+      <Typography variant="body">Header Image</Typography>
     </View>
   );
 }

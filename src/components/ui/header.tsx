@@ -1,7 +1,8 @@
 import { selectUser } from "@/modules/auth/store/selectors";
 import { useAppSelector } from "@/store/hooks";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import Avatar from "./avatar";
+import Typography from "./typography";
 
 export default function Header() {
   const user = useAppSelector(selectUser);
@@ -11,20 +12,9 @@ export default function Header() {
       <Avatar user={user} />
 
       <View>
-        <Text style={{ fontSize: 16, fontWeight: 600, letterSpacing: -0.4 }}>
-          Olá, {user?.displayName}
-        </Text>
+        <Typography variant="subtitle">Olá, {user?.displayName}</Typography>
 
-        <Text
-          style={{
-            fontSize: 10,
-            fontWeight: 500,
-            letterSpacing: -0.2,
-            color: "#828282",
-          }}
-        >
-          Quinta. 11 de Junho
-        </Text>
+        <Typography variant="caption">Quinta. 11 de Junho</Typography>
       </View>
     </View>
   );

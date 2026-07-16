@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import Typography from "./typography";
 
 interface BadgeProps {
   text: string;
@@ -14,9 +15,9 @@ export default function Badge({ text }: BadgeProps) {
         borderRadius: 16,
       }}
     >
-      <Text style={{ color: "#FFFFFF", fontSize: 10, fontWeight: 600 }}>
+      <Typography variant="caption" style={{ color: "#FFFFFF", fontWeight: "600" }}>
         {text}
-      </Text>
+      </Typography>
     </View>
   );
 }

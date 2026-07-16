@@ -1,8 +1,9 @@
 import TitleDisplay from "@/components/shared/title-display";
 import Card from "@/components/ui/card";
+import Typography from "@/components/ui/typography";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useCallback } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import * as actions from "../store/actions";
 import { selectFontSize } from "../store/selector";
 import { SetupType } from "../store/slices";
@@ -45,7 +46,7 @@ export default function FontSizeSetupCard() {
                 borderColor: isCurrentFontSize ? "#39A304" : "#EAEAEA",
               }}
             >
-              <Text>{size}</Text>
+              <Typography variant="label">{size}</Typography>
             </TouchableOpacity>
           );
         })}
