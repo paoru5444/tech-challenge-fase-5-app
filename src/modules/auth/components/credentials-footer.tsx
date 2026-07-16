@@ -1,4 +1,5 @@
 import Typography from "@/components/ui/typography";
+import { useSpacing } from "@/hooks/useSpacing";
 import { TouchableOpacity, View } from "react-native";
 
 interface CredentialsFooterProps {
@@ -12,15 +13,19 @@ export default function CredentialsFooter({
   title,
   buttonLabel,
 }: CredentialsFooterProps) {
+  const spacing = useSpacing();
+
   return (
     <View
       style={{
-        gap: 20,
-        paddingHorizontal: 16,
+        gap: spacing(20),
+        paddingHorizontal: spacing(16),
         alignItems: "center",
       }}
     >
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+      <View
+        style={{ flexDirection: "row", alignItems: "center", gap: spacing(4) }}
+      >
         <Typography variant="body">{title}</Typography>
 
         <TouchableOpacity onPress={onPress}>

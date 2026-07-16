@@ -1,4 +1,5 @@
 import { theme } from "@/constants/theme";
+import { useContrastColor } from "@/hooks/useContrastColor";
 import { Pressable, StyleSheet, Text, View, ViewStyle } from "react-native";
 import Typography from "./typography";
 
@@ -23,6 +24,16 @@ export function Checkbox({
   size = 20,
   style,
 }: CheckboxProps) {
+  const borderColor = useContrastColor(theme.colors.border.default, "#000000");
+  const placeholderColor = useContrastColor(
+    theme.colors.text.placeholder,
+    "#000000",
+  );
+  const secondaryColor = useContrastColor(
+    theme.colors.text.secondary,
+    "#000000",
+  );
+
   return (
     <Pressable
       style={[styles.row, style]}
@@ -40,7 +51,7 @@ export function Checkbox({
             height: size,
             borderRadius: theme.radius.xs,
           },
-          checked ? styles.boxChecked : styles.boxUnchecked,
+          checked ? styles.boxChecked : [styles.boxUnchecked, { borderColor }],
           disabled && styles.boxDisabled,
         ]}
       >
@@ -54,8 +65,12 @@ export function Checkbox({
           variant="body"
           style={[
             styles.label,
-            disabled && styles.labelDisabled,
-            checked && strikethroughWhenChecked && styles.labelStrike,
+            disabled && { color: placeholderColor },
+            checked &&
+              strikethroughWhenChecked && {
+                textDecorationLine: "line-through",
+                color: secondaryColor,
+              },
           ]}
         >
           {label}
@@ -77,7 +92,6 @@ const styles = StyleSheet.create({
   },
   boxUnchecked: {
     backgroundColor: theme.colors.background.surface,
-    borderColor: theme.colors.border.default,
   },
   boxChecked: {
     backgroundColor: theme.colors.semantic.info,
@@ -94,12 +108,5 @@ const styles = StyleSheet.create({
     color: theme.colors.text.primary,
     marginLeft: theme.spacing.sm,
     flexShrink: 1,
-  },
-  labelDisabled: {
-    color: theme.colors.text.placeholder,
-  },
-  labelStrike: {
-    textDecorationLine: "line-through",
-    color: theme.colors.text.secondary,
   },
 });

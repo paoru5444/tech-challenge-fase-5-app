@@ -5,6 +5,7 @@ import TaskCard from "@/components/shared/task-card";
 import Button from "@/components/ui/button";
 import { InputControl } from "@/components/ui/input-control";
 import Typography from "@/components/ui/typography";
+import { useSpacing } from "@/hooks/useSpacing";
 import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
 import Feather from "@react-native-vector-icons/feather";
 import { useEffect, useMemo, useRef } from "react";
@@ -15,6 +16,7 @@ export default function Home() {
   const { control, errors, handleSubmit, addTask, getTasks, tasks } = useTask();
 
   const sheetRef = useRef<BottomSheet>(null);
+  const spacing = useSpacing();
 
   useEffect(() => {
     getTasks();
@@ -34,15 +36,15 @@ export default function Home() {
             description={"Suas metas e objetivos listados aqui"}
           />
         }
-        contentContainerStyle={{ gap: 32 }}
-        content={{ paddingHorizontal: 20, paddingTop: 32 }}
+        contentContainerStyle={{ gap: spacing(32) }}
+        content={{ paddingHorizontal: spacing(20), paddingTop: spacing(32) }}
       >
         <Banner
           title="Atividades pendentes"
           value={String(tasks.length || "")}
         />
 
-        <View style={{ gap: 16 }}>
+        <View style={{ gap: spacing(16) }}>
           <Typography variant="subtitle">Minhas atividades</Typography>
 
           {pendingTasks.length &&
@@ -88,15 +90,15 @@ export default function Home() {
         <BottomSheetView
           style={{
             flex: 1,
-            padding: 24,
+            padding: spacing(24),
             alignItems: "center",
             justifyContent: "space-between",
-            gap: 16,
+            gap: spacing(16),
           }}
         >
           <Typography variant="h2">Nova atividade</Typography>
 
-          <View style={{ width: "100%", gap: 24 }}>
+          <View style={{ width: "100%", gap: spacing(24) }}>
             <InputControl
               label="Nome da atividade"
               placeholder="Assistir ao módulo 01*"

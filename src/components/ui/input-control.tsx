@@ -1,3 +1,5 @@
+import { useContrastColor } from "@/hooks/useContrastColor";
+import { useSpacing } from "@/hooks/useSpacing";
 import { SignInForm } from "@/modules/auth/hooks/useSignIn";
 import { SignUpForm } from "@/modules/auth/hooks/useSignUp";
 import { Control, Controller } from "react-hook-form";
@@ -34,11 +36,14 @@ export function InputControl({
   disablePaddingVertical,
   ...rest
 }: InputProps) {
+  const borderColor = useContrastColor("#EAEAEA", "#000000");
+  const spacing = useSpacing();
+
   return (
     <View
       style={{
-        gap: 8,
-        paddingVertical: disablePaddingVertical ? 0 : 16,
+        gap: spacing(8),
+        paddingVertical: disablePaddingVertical ? 0 : spacing(16),
         borderRadius: 15,
         elevation: 5,
         shadowColor: "#000",
@@ -60,7 +65,10 @@ export function InputControl({
             placeholder={placeholder}
             autoCapitalize={autoCapitalize}
             secureTextEntry={secureTextEntry}
-            style={[styles.input, { backgroundColor: "#fff" }]}
+            style={[
+              styles.input,
+              { backgroundColor: "#fff", borderColor, paddingHorizontal: spacing(16) },
+            ]}
             {...rest}
           />
         )}
@@ -75,9 +83,7 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     borderRadius: 10,
-    paddingHorizontal: 16,
     borderWidth: 1,
-    borderColor: "#EAEAEA",
   },
   label: {
     fontSize: 14,

@@ -1,3 +1,4 @@
+import { useSpacing } from "@/hooks/useSpacing";
 import { selectUser } from "@/modules/auth/store/selectors";
 import { useAppSelector } from "@/store/hooks";
 import { View } from "react-native";
@@ -6,9 +7,10 @@ import Typography from "./typography";
 
 export default function Header() {
   const user = useAppSelector(selectUser);
+  const spacing = useSpacing();
 
   return (
-    <View style={{ flexDirection: "row", gap: 8 }}>
+    <View style={{ flexDirection: "row", gap: spacing(8) }}>
       <Avatar user={user} />
 
       <View>

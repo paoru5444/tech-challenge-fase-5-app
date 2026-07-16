@@ -1,3 +1,5 @@
+import { useContrastColor } from "@/hooks/useContrastColor";
+import { useSpacing } from "@/hooks/useSpacing";
 import { StyleProp, View, ViewStyle } from "react-native";
 
 interface Card {
@@ -6,15 +8,18 @@ interface Card {
 }
 
 export default function Card({ style, children }: Card) {
+  const borderColor = useContrastColor("#EAEAEA", "#000000");
+  const spacing = useSpacing();
+
   return (
     <View
       style={{
         borderWidth: 2,
-        paddingVertical: 24,
-        paddingHorizontal: 20,
+        paddingVertical: spacing(24),
+        paddingHorizontal: spacing(20),
         borderRadius: 32,
         backgroundColor: "#FFFFFF",
-        borderColor: "#EAEAEA",
+        borderColor,
         ...style,
       }}
     >

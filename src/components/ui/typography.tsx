@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { StyleSheet, Text, TextProps, TextStyle } from "react-native";
+import { useContrastColor } from "@/hooks/useContrastColor";
 import { selectFontSize } from "@/modules/setup/store/selector";
 import type { SetupType } from "@/modules/setup/store/slices";
 import { useAppSelector } from "@/store/hooks";
@@ -43,7 +44,6 @@ const variantStyles: Record<TypographyVariant, TextStyle> = {
   caption: {
     fontWeight: "500",
     letterSpacing: -0.2,
-    color: "#828282",
   },
 };
 
@@ -54,6 +54,7 @@ export default function Typography({
   ...rest
 }: TypographyProps) {
   const fontSize = useAppSelector(selectFontSize);
+  const captionColor = useContrastColor("#828282", "#000000");
 
   return (
     <Text
@@ -61,6 +62,7 @@ export default function Typography({
         styles.base,
         variantStyles[variant],
         { fontSize: sizeStyles[variant][fontSize] },
+        variant === "caption" && { color: captionColor },
         style,
       ]}
       {...rest}

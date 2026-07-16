@@ -1,6 +1,7 @@
 import Button from "@/components/ui/button";
 import { InputControl } from "@/components/ui/input-control";
 import Typography from "@/components/ui/typography";
+import { useSpacing } from "@/hooks/useSpacing";
 import { ScrollView, View } from "react-native";
 import CredentialsFooter from "../components/credentials-footer";
 import CredentialsHeader from "../components/credentials-header";
@@ -9,16 +10,17 @@ import { useSignIn } from "../hooks/useSignIn";
 export function SignInScreen() {
   const { signIn, loading, goToSignUp, control, handleSubmit, errors } =
     useSignIn();
+  const spacing = useSpacing();
 
   return (
-    <ScrollView contentContainerStyle={{ gap: 32 }}>
+    <ScrollView contentContainerStyle={{ gap: spacing(32) }}>
       <CredentialsHeader />
 
-      <View style={{ paddingHorizontal: 16 }}>
+      <View style={{ paddingHorizontal: spacing(16) }}>
         <Typography variant="h1">Seja bem vindo!</Typography>
       </View>
 
-      <View style={{ paddingHorizontal: 16 }}>
+      <View style={{ paddingHorizontal: spacing(16) }}>
         <InputControl
           label="Digite seu email"
           placeholder="john.doe@mail.com"
@@ -39,7 +41,7 @@ export function SignInScreen() {
         />
       </View>
 
-      <View style={{ paddingHorizontal: 16 }}>
+      <View style={{ paddingHorizontal: spacing(16) }}>
         <Button text="Entrar" onPress={handleSubmit(signIn)} />
       </View>
 

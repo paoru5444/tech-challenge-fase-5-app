@@ -3,6 +3,8 @@ import ScrollWrapper from "@/components/shared/scroll-wrapper";
 import TitleDisplay from "@/components/shared/title-display";
 import Card from "@/components/ui/card";
 import Typography from "@/components/ui/typography";
+import { useContrastColor } from "@/hooks/useContrastColor";
+import { useSpacing } from "@/hooks/useSpacing";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useCallback } from "react";
 import { TouchableOpacity, View } from "react-native";
@@ -26,6 +28,9 @@ export default function SetupScreen() {
   const currentSpacementSize = useAppSelector(selectSpacementSize);
   const currentInterfaceMode = useAppSelector(selectInterfaceMode);
   const currentFeedback = useAppSelector(selectFeedback);
+  const switchTrackInactiveColor = useContrastColor("#C4C4C4", "#4A4844");
+  const switchBorderInactiveColor = useContrastColor("#EAEAEA", "#000000");
+  const spacing = useSpacing();
 
   const onSelectFontSize = useCallback((fontSize: SetupType["fontSize"]) => {
     dispatch(actions.updateFontSize(fontSize));
@@ -98,8 +103,8 @@ export default function SetupScreen() {
           }
         />
       }
-      contentContainerStyle={{ gap: 16 }}
-      content={{ paddingHorizontal: 20, paddingTop: 32 }}
+      contentContainerStyle={{ gap: spacing(16) }}
+      content={{ paddingHorizontal: spacing(20), paddingTop: spacing(32) }}
       headerContainerStyle={{ height: 50 }}
     >
       <SetupCard<"fontSize">
@@ -138,22 +143,21 @@ export default function SetupScreen() {
         currentItem={currentInterfaceMode}
       />
 
-      <Card style={{ gap: 16 }}>
+      <Card style={{ gap: spacing(16) }}>
         <TitleDisplay
           letter={"F"}
           title={"Feedbacks e Confirmações"}
           containerStyle={{ borderRadius: 10 }}
         />
 
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: spacing(8) }}>
           {feedbackConfirmations.map((item) => (
             <TouchableOpacity
               key={item.title}
               onPress={() => onSelectFeedback(item)}
               style={{
                 minHeight: 40,
-
-                padding: 6,
+                padding: spacing(6),
                 borderRadius: 10,
                 flexDirection: "row",
                 alignItems: "center",
@@ -176,9 +180,9 @@ export default function SetupScreen() {
                 circleSize={20}
                 circleBorderWidth={1}
                 circleBorderActiveColor="#EAEAEA"
-                circleBorderInactiveColor="#EAEAEA"
+                circleBorderInactiveColor={switchBorderInactiveColor}
                 backgroundActive={"#39A304"}
-                backgroundInactive={"#C4C4C4"}
+                backgroundInactive={switchTrackInactiveColor}
                 circleActiveColor={"#FFFFFF"}
                 circleInActiveColor={"#FFFFFF"}
                 changeValueImmediately={true}

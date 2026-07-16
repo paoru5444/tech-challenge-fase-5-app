@@ -1,4 +1,5 @@
 import { ITask } from "@/domain/entities/task";
+import { useSpacing } from "@/hooks/useSpacing";
 import { useTask } from "@/modules/home/hooks/useTask";
 import { Feather } from "@react-native-vector-icons/feather";
 import { useState } from "react";
@@ -16,9 +17,10 @@ export default function TaskCard({ task }: TaskCardProps) {
   const { id, title, description, checked, steps } = task;
   const [isCollapsed, setIsCollapsed] = useState(true);
   const { deleteTask, updateTask } = useTask();
+  const spacing = useSpacing();
 
   return (
-    <Card style={{ gap: 12 }}>
+    <Card style={{ gap: spacing(12) }}>
       <TouchableOpacity
         style={{
           flexDirection: "row",
@@ -46,7 +48,11 @@ export default function TaskCard({ task }: TaskCardProps) {
               <ProgressBar progress={50} />
 
               <View
-                style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: spacing(8),
+                }}
               >
                 <Checkbox checked={true} />
                 <Typography variant="body">
@@ -55,7 +61,11 @@ export default function TaskCard({ task }: TaskCardProps) {
               </View>
 
               <View
-                style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: spacing(8),
+                }}
               >
                 <Checkbox checked={false} />
                 <Typography variant="body">
@@ -67,7 +77,7 @@ export default function TaskCard({ task }: TaskCardProps) {
 
           <View />
 
-          <View style={{ gap: 8 }}>
+          <View style={{ gap: spacing(8) }}>
             {!checked && (
               <TouchableOpacity
                 onPress={() =>

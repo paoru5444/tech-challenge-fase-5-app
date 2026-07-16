@@ -1,4 +1,5 @@
 import { theme } from "@/constants/theme";
+import { useContrastColor } from "@/hooks/useContrastColor";
 import { useEffect, useRef } from "react";
 import { Animated, StyleSheet, View, ViewStyle } from "react-native";
 import Typography from "./typography";
@@ -33,6 +34,12 @@ export function ProgressBar({
   showLabel = false,
   style,
 }: ProgressBarProps) {
+  const trackColor = useContrastColor(
+    theme.colors.background.surfaceAlt,
+    "#4A4844",
+  );
+  const labelColor = useContrastColor(theme.colors.text.secondary, "#000000");
+
   const clamped = Math.max(0, Math.min(100, progress));
   const widthAnim = useRef(new Animated.Value(0)).current;
 
@@ -61,7 +68,7 @@ export function ProgressBar({
           {
             height,
             borderRadius: height / 2,
-            backgroundColor: theme.colors.background.surfaceAlt,
+            backgroundColor: trackColor,
           },
         ]}
       >
@@ -79,7 +86,10 @@ export function ProgressBar({
       </View>
 
       {showLabel && (
-        <Typography variant="caption" style={styles.label}>
+        <Typography
+          variant="caption"
+          style={[styles.label, { color: labelColor }]}
+        >
           {Math.round(clamped)}%
         </Typography>
       )}
@@ -101,7 +111,6 @@ const styles = StyleSheet.create({
     // largura controlada via Animated.Value
   },
   label: {
-    color: theme.colors.text.secondary,
     marginLeft: theme.spacing.sm,
     minWidth: 32,
     textAlign: "right",

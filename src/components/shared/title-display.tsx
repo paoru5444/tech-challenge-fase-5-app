@@ -1,4 +1,5 @@
 import { AvatarProps } from "@/components/ui/avatar";
+import { useSpacing } from "@/hooks/useSpacing";
 import { View, ViewStyle } from "react-native";
 import Avatar from "../ui/avatar";
 import Typography from "../ui/typography";
@@ -16,12 +17,14 @@ export default function TitleDisplay({
   description,
   containerStyle,
 }: TitleDisplayProps) {
+  const spacing = useSpacing();
+
   return (
     <View
       style={{
         flexDirection: "row",
         alignItems: "center",
-        gap: 10,
+        gap: spacing(10),
       }}
     >
       {letter && !user && (
@@ -32,7 +35,7 @@ export default function TitleDisplay({
         <Avatar user={user} containerStyle={containerStyle} />
       )}
 
-      <View style={{ gap: 4, width: "90%" }}>
+      <View style={{ gap: spacing(4), width: "90%" }}>
         {title && <Typography variant="label">{title}</Typography>}
 
         {description && (

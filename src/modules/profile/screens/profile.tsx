@@ -7,6 +7,7 @@ import Card from "@/components/ui/card";
 import Divider from "@/components/ui/divider";
 import Typography from "@/components/ui/typography";
 import { preferencesNames } from "@/constants/conts";
+import { useSpacing } from "@/hooks/useSpacing";
 import * as actions from "@/modules/auth/store/actions";
 import { selectUser } from "@/modules/auth/store/selectors";
 import { selecPreferences } from "@/modules/setup/store/selector";
@@ -20,6 +21,7 @@ export default function ProfileScreen() {
   const preferences = useAppSelector(selecPreferences);
 
   const dispatch = useAppDispatch();
+  const spacing = useSpacing();
 
   const logout = async () => {
     await dispatch(actions.logout());
@@ -56,8 +58,8 @@ export default function ProfileScreen() {
         />
       }
       footer={<Button text={"Sair da conta"} onPress={logout} />}
-      contentContainerStyle={{ gap: 16 }}
-      content={{ paddingHorizontal: 20, paddingTop: 32 }}
+      contentContainerStyle={{ gap: spacing(16) }}
+      content={{ paddingHorizontal: spacing(20), paddingTop: spacing(32) }}
       headerContainerStyle={{ height: 50 }}
     >
       <Card>
@@ -68,7 +70,7 @@ export default function ProfileScreen() {
         />
       </Card>
 
-      <Card style={{ gap: 32 }}>
+      <Card style={{ gap: spacing(32) }}>
         <TitleDisplay letter="P" title="Preferências ativas" />
 
         <FlatList
