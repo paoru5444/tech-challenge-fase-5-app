@@ -8,14 +8,14 @@ import Typography from "@/components/ui/typography";
 import { useSpacing } from "@/hooks/useSpacing";
 import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
 import Feather from "@react-native-vector-icons/feather";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useTask } from "../hooks/useTask";
 
 export default function Home() {
-  const { control, errors, handleSubmit, addTask, getTasks, tasks } = useTask();
+  const { control, errors, handleSubmit, addTask, getTasks, tasks, sheetRef } =
+    useTask();
 
-  const sheetRef = useRef<BottomSheet>(null);
   const spacing = useSpacing();
 
   useEffect(() => {

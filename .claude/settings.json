@@ -4,7 +4,9 @@
       "Bash(npx expo *)",
       "Bash(echo \"started with pid $!\")",
       "Bash(cat /tmp/expo-start.log)",
-      "Read(//private/tmp/**)"
+      "Read(//private/tmp/**)",
+      "Bash(grep \"task-card.tsx\\\\|selector.ts\" /tmp/after_taskcard_errors.txt)",
+      "Bash(grep \"task-card.tsx\" /tmp/before_errors.txt)"
     ]
   },
   "enabledPlugins": {

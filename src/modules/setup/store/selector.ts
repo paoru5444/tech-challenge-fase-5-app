@@ -23,3 +23,7 @@ export const selectInterfaceMode = (state: RootState) => {
 export const selectFeedback = (state: RootState) => {
   return state.setup.setup.feedback;
 };
+
+export const selectExtraConfirmation = (state: RootState) => {
+  return state.setup.setup.feedback.extraConfirmation;
+};
