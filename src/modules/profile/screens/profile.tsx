@@ -35,7 +35,6 @@ export default function ProfileScreen() {
     interfaceMode: "Interface",
     visualFeedback: "Feedback visual",
     extraConfirmation: "Confirmação extra",
-    soundConfirmation: "Conformação por som",
   };
 
   const preferencesList = useMemo(() => {

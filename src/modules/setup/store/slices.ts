@@ -10,7 +10,6 @@ import {
 export type FeedbackType = {
   visualFeedback: boolean;
   extraConfirmation: boolean;
-  soundConfirmation: boolean;
 };
 
 export type SetupType = {
@@ -34,7 +33,6 @@ const initialState: SetupState = {
     feedback: {
       visualFeedback: true,
       extraConfirmation: true,
-      soundConfirmation: true,
     },
   },
 };

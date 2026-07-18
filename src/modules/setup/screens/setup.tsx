@@ -77,12 +77,6 @@ export default function SetupScreen() {
       type: "extraConfirmation",
       enabled: currentFeedback.extraConfirmation,
     },
-    {
-      title: "Sons de confirmação",
-      description: "Um som suave ao concluir uma tarefa",
-      type: "soundConfirmation",
-      enabled: currentFeedback.soundConfirmation,
-    },
   ];
 
   const onSelectFeedback = useCallback((feedback: FeedbackProps) => {
