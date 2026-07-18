@@ -9,7 +9,7 @@ import { useSpacing } from "@/hooks/useSpacing";
 import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
 import Feather from "@react-native-vector-icons/feather";
 import { useEffect, useMemo } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { useTask } from "../hooks/useTask";
 
 export default function Home() {
@@ -55,20 +55,18 @@ export default function Home() {
       <TouchableOpacity
         onPress={() => sheetRef.current?.snapToIndex(0)}
         style={{
-          width: 50,
-          height: 50,
+          width: 60,
+          height: 60,
           backgroundColor: "#F67653",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: 25,
+          borderRadius: 30,
           position: "absolute",
           bottom: 20,
           right: 20,
         }}
       >
-        <Text style={{ fontSize: 40, fontWeight: 300, color: "#FFFFFF" }}>
-          <Feather name="plus" color={"#FFFFFF"} size={28} />
-        </Text>
+        <Feather name="plus" color={"#FFFFFF"} size={34} />
       </TouchableOpacity>
 
       <BottomSheet
