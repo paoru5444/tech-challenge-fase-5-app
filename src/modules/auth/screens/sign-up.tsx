@@ -8,8 +8,7 @@ import CredentialsHeader from "../components/credentials-header";
 import { useSignUp } from "../hooks/useSignUp";
 
 export function SignUpScreen() {
-  const { signUp, loading, goToSignIn, control, handleSubmit, errors } =
-    useSignUp();
+  const { signUp, goToSignIn, control, handleSubmit, errors } = useSignUp();
   const spacing = useSpacing();
 
   return (
@@ -17,7 +16,7 @@ export function SignUpScreen() {
       <CredentialsHeader />
 
       <View style={{ paddingHorizontal: spacing(16) }}>
-        <Typography variant="h1">Cadastre-se</Typography>
+        <Typography variant="h2">Cadastre-se</Typography>
       </View>
 
       <View style={{ paddingHorizontal: spacing(16) }}>

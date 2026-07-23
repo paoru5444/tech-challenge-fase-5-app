@@ -21,19 +21,17 @@ export default function ScrollWrapper({
   children,
 }: ScrollWrapper) {
   return (
-    <View style={{ flex: 1, ...content }}>
+    <View style={{ flex: 1, backgroundColor: "#fff", ...content }}>
+      <View style={{ ...headerContainerStyle }}>{header}</View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           ...contentContainerStyle,
         }}
       >
-        <View style={{ ...headerContainerStyle }}>{header}</View>
-
         {children}
-
-        <View style={{ ...footerContainerStyle }}>{footer}</View>
       </ScrollView>
+      <View style={{ ...footerContainerStyle }}>{footer}</View>
     </View>
   );
 }

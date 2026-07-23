@@ -29,7 +29,7 @@ const colorMap: Record<ProgressBarColor, string> = {
 export function ProgressBar({
   progress,
   color = "success",
-  height = 8,
+  height = 12,
   animated = true,
   showLabel = false,
   style,

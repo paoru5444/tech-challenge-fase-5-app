@@ -1,4 +1,3 @@
-import PageHeader from "@/components/shared/page-header";
 import ScrollWrapper from "@/components/shared/scroll-wrapper";
 import TitleDisplay from "@/components/shared/title-display";
 import Badge from "@/components/ui/badge";
@@ -6,6 +5,7 @@ import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Divider from "@/components/ui/divider";
 import Typography from "@/components/ui/typography";
+import { colors } from "@/constants/colors";
 import { preferencesNames } from "@/constants/conts";
 import { useSpacing } from "@/hooks/useSpacing";
 import * as actions from "@/modules/auth/store/actions";
@@ -14,7 +14,7 @@ import { selecPreferences } from "@/modules/setup/store/selector";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { router } from "expo-router";
 import { useMemo } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 
 export default function ProfileScreen() {
   const user = useAppSelector(selectUser);
@@ -51,16 +51,26 @@ export default function ProfileScreen() {
   return (
     <ScrollWrapper
       header={
-        <PageHeader
-          title={"Meu Perfil"}
-          description={"Suas informações e preferências salvas"}
-        />
+        <View style={{ gap: spacing(4) }}>
+          <Typography variant="h2" style={{ lineHeight: 28 }}>
+            Informações do{" "}
+            <Text style={{ color: colors.brand.primary }}>Perfil</Text>
+          </Typography>
+
+          <Typography style={{ lineHeight: 20 }}>
+            Suas informações e preferências salvas
+          </Typography>
+        </View>
       }
       footer={<Button text={"Sair da conta"} onPress={logout} />}
-      contentContainerStyle={{ gap: spacing(16) }}
-      content={{ paddingHorizontal: spacing(20), paddingTop: spacing(32) }}
-      headerContainerStyle={{ height: 50 }}
+      contentContainerStyle={{ gap: spacing(24) }}
+      content={{
+        paddingHorizontal: spacing(20),
+        paddingTop: spacing(64),
+      }}
     >
+      <View />
+
       <Card>
         <TitleDisplay
           user={user}
@@ -91,7 +101,7 @@ export default function ProfileScreen() {
                   justifyContent: "space-between",
                 }}
               >
-                <Typography variant="label">{name}</Typography>
+                <Typography variant="body">{name}</Typography>
 
                 <Badge text={badgeName} />
               </View>

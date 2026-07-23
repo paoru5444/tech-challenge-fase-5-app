@@ -18,7 +18,10 @@ export default function Badge({ text }: BadgeProps) {
         borderRadius: 16,
       }}
     >
-      <Typography variant="caption" style={{ color: "#FFFFFF", fontWeight: "600" }}>
+      <Typography
+        variant="bodySmall"
+        style={{ color: "#FFFFFF", fontWeight: "600" }}
+      >
         {text}
       </Typography>
     </View>

@@ -4,7 +4,7 @@ import { taskSchema } from "@/schemas/task-schema";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import BottomSheet from "@expo/ui/community/bottom-sheet";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as actions from "../store/actions";
 import { selectTasks } from "../store/selectors";
@@ -13,6 +13,17 @@ export function useTask() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const tasks = useAppSelector(selectTasks);
+
+  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearch(query);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [query]);
 
   const sheetRef = useRef<BottomSheet>(null);
 
@@ -56,6 +67,28 @@ export function useTask() {
     },
   });
 
+  const pendingTasks = useMemo(
+    () => tasks.filter((task) => !task.checked) || [],
+    [tasks],
+  );
+
+  const completedTasks = useMemo(
+    () => tasks.filter((task) => task.checked) || [],
+    [tasks],
+  );
+
+  const lastTasks = useMemo(() => tasks.slice(0, 3) || [], [tasks]);
+
+  const filteredTasks = useMemo(() => {
+    if (!search.trim()) return tasks;
+
+    const normalizedSearch = search.trim().toLowerCase();
+
+    return tasks.filter((task) =>
+      task.title.toLowerCase().includes(normalizedSearch),
+    );
+  }, [tasks, search]);
+
   return {
     getTasks,
     addTask,
@@ -66,5 +99,11 @@ export function useTask() {
     handleSubmit,
     tasks,
     sheetRef,
+    pendingTasks,
+    completedTasks,
+    lastTasks,
+    query,
+    setQuery,
+    filteredTasks,
   };
 }

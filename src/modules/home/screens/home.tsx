@@ -1,127 +1,91 @@
 import Banner from "@/components/shared/banner";
-import PageHeader from "@/components/shared/page-header";
 import ScrollWrapper from "@/components/shared/scroll-wrapper";
 import TaskCard from "@/components/shared/task-card";
-import Button from "@/components/ui/button";
-import { InputControl } from "@/components/ui/input-control";
 import Typography from "@/components/ui/typography";
+import { colors } from "@/constants/colors";
 import { useSpacing } from "@/hooks/useSpacing";
-import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
-import Feather from "@react-native-vector-icons/feather";
-import { useEffect, useMemo } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { router } from "expo-router";
+import { useEffect } from "react";
+import { Pressable, Text, View } from "react-native";
+import CreateTask from "../components/create-task";
 import { useTask } from "../hooks/useTask";
 
 export default function Home() {
-  const { control, errors, handleSubmit, addTask, getTasks, tasks, sheetRef } =
-    useTask();
+  const { getTasks, pendingTasks, completedTasks, lastTasks } = useTask();
 
   const spacing = useSpacing();
 
   useEffect(() => {
     getTasks();
-  }, []);
+  }, [getTasks]);
 
-  const pendingTasks = useMemo(
-    () => tasks.filter((task) => task.checked === false) || [],
-    [tasks],
-  );
+  const goToTasks = () => {
+    router.push("/tasks");
+  };
 
   return (
     <>
       <ScrollWrapper
         header={
-          <PageHeader
-            title={"Atividades"}
-            description={"Suas metas e objetivos listados aqui"}
-          />
+          <View style={{ gap: spacing(4) }}>
+            <Typography variant="h2" style={{ lineHeight: 28 }}>
+              Organize suas atividades{"\n"}
+              com{" "}
+              <Text style={{ color: colors.brand.primary }}>SeniorEase</Text>
+            </Typography>
+          </View>
         }
         contentContainerStyle={{ gap: spacing(32) }}
-        content={{ paddingHorizontal: spacing(20), paddingTop: spacing(32) }}
+        content={{
+          paddingHorizontal: spacing(20),
+          paddingTop: spacing(64),
+        }}
       >
-        <Banner
-          title="Atividades pendentes"
-          value={String(tasks.length || "")}
-        />
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            gap: 16,
+          }}
+        >
+          <Banner
+            title="Tarefas Pendentes"
+            value={String(pendingTasks.length || "")}
+          />
 
-        <View style={{ gap: spacing(16) }}>
-          <Typography variant="subtitle">Minhas atividades</Typography>
+          <Banner
+            title="Tarefas Concluidas"
+            value={String(completedTasks.length || "")}
+            variant="history"
+          />
+        </View>
 
-          {pendingTasks.length &&
-            pendingTasks.map((task) => <TaskCard task={task} key={task.id} />)}
+        <View style={{ gap: spacing(12) }}>
+          <View />
+
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Typography variant="subtitle">Últimas atividades</Typography>
+
+            <Pressable onPress={goToTasks} hitSlop={12}>
+              <Typography
+                variant="body"
+                style={{ color: colors.brand.primary, fontWeight: 600 }}
+              >
+                Ver todas
+              </Typography>
+            </Pressable>
+          </View>
+
+          <View />
+
+          {lastTasks.length &&
+            lastTasks.map((task) => <TaskCard task={task} key={task.id} />)}
         </View>
       </ScrollWrapper>
 
-      <TouchableOpacity
-        onPress={() => sheetRef.current?.snapToIndex(0)}
-        style={{
-          width: 60,
-          height: 60,
-          backgroundColor: "#F67653",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 30,
-          position: "absolute",
-          bottom: 20,
-          right: 20,
-        }}
-      >
-        <Feather name="plus" color={"#FFFFFF"} size={34} />
-      </TouchableOpacity>
-
-      <BottomSheet
-        ref={sheetRef}
-        snapPoints={["45%", "50%", "100%"]}
-        index={-1}
-        onChange={(index) => {
-          console.log("onChange", index);
-        }}
-        onClose={() => {
-          console.log("closed");
-        }}
-        enablePanDownToClose
-        backgroundStyle={{
-          backgroundColor: "#FFFFFF",
-        }}
-        enableOverDrag={false}
-      >
-        <BottomSheetView
-          style={{
-            flex: 1,
-            padding: spacing(24),
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: spacing(16),
-          }}
-        >
-          <Typography variant="h2">Nova atividade</Typography>
-
-          <View style={{ width: "100%", gap: spacing(24) }}>
-            <InputControl
-              label="Nome da atividade"
-              placeholder="Assistir ao módulo 01*"
-              control={control}
-              error={errors["title"]}
-              name="title"
-              disablePaddingVertical
-            />
-
-            <InputControl
-              label="Descrição da atividade"
-              placeholder="Finalizar as aulas 01 e 02*"
-              autoCapitalize="none"
-              control={control}
-              error={errors["description"]}
-              name="description"
-              disablePaddingVertical
-            />
-          </View>
-
-          <Button text="Criar atividade" onPress={handleSubmit(addTask)} />
-        </BottomSheetView>
-      </BottomSheet>
+      <CreateTask />
     </>
   );
 }
-
-// Amanhã fazer o bottom sheet

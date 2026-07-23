@@ -17,7 +17,7 @@ export function SignInScreen() {
       <CredentialsHeader />
 
       <View style={{ paddingHorizontal: spacing(16) }}>
-        <Typography variant="h1">Seja bem vindo!</Typography>
+        <Typography variant="h2">Seja bem vindo!</Typography>
       </View>
 
       <View style={{ paddingHorizontal: spacing(16) }}>

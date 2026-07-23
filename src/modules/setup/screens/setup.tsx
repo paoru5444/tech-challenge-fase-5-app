@@ -1,13 +1,13 @@
-import PageHeader from "@/components/shared/page-header";
 import ScrollWrapper from "@/components/shared/scroll-wrapper";
 import TitleDisplay from "@/components/shared/title-display";
 import Card from "@/components/ui/card";
 import Typography from "@/components/ui/typography";
+import { colors } from "@/constants/colors";
 import { useContrastColor } from "@/hooks/useContrastColor";
 import { useSpacing } from "@/hooks/useSpacing";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useCallback } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Switch } from "react-native-switch";
 import SetupCard from "../components/setup-card";
 import * as actions from "../store/actions";
@@ -90,17 +90,26 @@ export default function SetupScreen() {
   return (
     <ScrollWrapper
       header={
-        <PageHeader
-          title={"Personalizar Experiência"}
-          description={
-            "Ajuste o aplicativo do seu jeito para ter mais conforto e facilidade"
-          }
-        />
+        <View style={{ gap: spacing(4) }}>
+          <Typography variant="h2" style={{ lineHeight: 28 }}>
+            Personalize a sua{" "}
+            <Text style={{ color: colors.brand.primary }}>Experiência</Text>
+          </Typography>
+
+          <Typography style={{ lineHeight: 20 }}>
+            Ajuste o aplicativo do seu jeito para ter mais{"\n"}conforto e
+            facilidade
+          </Typography>
+        </View>
       }
-      contentContainerStyle={{ gap: spacing(16) }}
-      content={{ paddingHorizontal: spacing(20), paddingTop: spacing(32) }}
-      headerContainerStyle={{ height: 50 }}
+      contentContainerStyle={{ gap: spacing(24) }}
+      content={{
+        paddingHorizontal: spacing(20),
+        paddingTop: spacing(64),
+      }}
     >
+      <View />
+
       <SetupCard<"fontSize">
         list={["small", "default", "big"]}
         onSelectItem={onSelectFontSize}
@@ -131,8 +140,8 @@ export default function SetupScreen() {
       <SetupCard<"interfaceMode">
         list={["simple", "default"]}
         onSelectItem={onSelectInterfaceMode}
-        title="Espaçamento"
-        description="Controla a distância entre os elementos na tela"
+        title="Modo de Interface"
+        description="Interface simplificada, mostra apenas o essencial"
         letter="I"
         currentItem={currentInterfaceMode}
       />
@@ -144,7 +153,7 @@ export default function SetupScreen() {
           containerStyle={{ borderRadius: 10 }}
         />
 
-        <View style={{ gap: spacing(8) }}>
+        <View style={{ gap: spacing(12) }}>
           {feedbackConfirmations.map((item) => (
             <TouchableOpacity
               key={item.title}
@@ -156,11 +165,12 @@ export default function SetupScreen() {
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
+                gap: spacing(6),
               }}
             >
               <View style={{ flex: 1, width: "100%" }}>
-                <Typography variant="label">{item.title}</Typography>
-                <Typography variant="bodySmall" style={{ flexShrink: 1 }}>
+                <Typography variant="subtitle">{item.title}</Typography>
+                <Typography variant="body" style={{ flexShrink: 1 }}>
                   {item.description}
                 </Typography>
               </View>

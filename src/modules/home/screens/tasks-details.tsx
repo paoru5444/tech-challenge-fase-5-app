@@ -1,33 +1,32 @@
+import Header from "@/components/shared/header";
+import ScrollWrapper from "@/components/shared/scroll-wrapper";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ProgressBar } from "@/components/ui/progress-bar";
+import Typography from "@/components/ui/typography";
+import { colors } from "@/constants/colors";
 import { ITask } from "@/domain/entities/task";
 import { useContrastColor } from "@/hooks/useContrastColor";
 import { useSpacing } from "@/hooks/useSpacing";
-import { useTask } from "@/modules/home/hooks/useTask";
 import { selectExtraConfirmation } from "@/modules/setup/store/selector";
 import { useAppSelector } from "@/store/hooks";
 import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
+import { useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import Card from "../ui/card";
-import { Checkbox } from "../ui/checkbox";
-import { ProgressBar } from "../ui/progress-bar";
-import Typography from "../ui/typography";
-
-interface TaskCardProps {
-  task: ITask;
-  onPress: () => void;
-}
+import { useTask } from "../hooks/useTask";
 
 type PendingAction = "complete" | "delete" | null;
 
-export default function TaskCard({ task, onPress }: TaskCardProps) {
-  const { id, title, description, checked, steps } = task;
-  const [isCollapsed, setIsCollapsed] = useState(true);
-  const [pendingAction, setPendingAction] = useState<PendingAction>(null);
-  const { deleteTask, updateTask } = useTask();
+export default function TasksDetails() {
   const spacing = useSpacing();
+  const task = useLocalSearchParams<ITask>();
+  const { updateTask, deleteTask } = useTask();
   const extraConfirmation = useAppSelector(selectExtraConfirmation);
   const sheetRef = useRef<BottomSheet>(null);
   const cancelBorderColor = useContrastColor("#EAEAEA", "#000000");
+  const [pendingAction, setPendingAction] = useState<PendingAction>(null);
+
+  console.log("task: ", task);
 
   const completeTask = () =>
     updateTask({ ...task, checked: !task.checked }, task.id);
@@ -46,7 +45,7 @@ export default function TaskCard({ task, onPress }: TaskCardProps) {
       setPendingAction("delete");
       sheetRef.current?.snapToIndex(0);
     } else {
-      deleteTask(id);
+      deleteTask(task?.id);
     }
   };
 
@@ -54,7 +53,7 @@ export default function TaskCard({ task, onPress }: TaskCardProps) {
     if (pendingAction === "complete") {
       completeTask();
     } else if (pendingAction === "delete") {
-      deleteTask(id);
+      deleteTask(task?.id);
     }
     sheetRef.current?.snapToIndex(-1);
   };
@@ -64,100 +63,103 @@ export default function TaskCard({ task, onPress }: TaskCardProps) {
   };
 
   return (
-    <>
-      <Card style={{ gap: spacing(12) }}>
-        <TouchableOpacity
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-          onPress={onPress}
-        >
-          <View style={{ gap: spacing(4) }}>
-            <Typography variant="subtitle">{title}</Typography>
-            <Typography variant="bodySmall">{description}</Typography>
-          </View>
-        </TouchableOpacity>
+    <ScrollWrapper
+      header={<Header />}
+      footer={
+        <View style={{ gap: spacing(16) }}>
+          <TouchableOpacity
+            onPress={requestComplete}
+            style={{
+              backgroundColor: "#39A304",
+              height: 50,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 20,
+            }}
+          >
+            <Typography
+              variant="subtitle"
+              style={{ color: "#FFFFFF", fontWeight: "600" }}
+            >
+              Concluir atividade
+            </Typography>
+          </TouchableOpacity>
 
-        {!isCollapsed && (
-          <>
-            {steps && steps.length && (
-              <>
-                <ProgressBar progress={50} />
+          <TouchableOpacity
+            onPress={requestDelete}
+            style={{
+              backgroundColor: "#F05069",
+              height: 50,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 20,
+            }}
+          >
+            <Typography
+              variant="subtitle"
+              style={{ color: "#FFFFFF", fontWeight: "600" }}
+            >
+              Deletar atividade
+            </Typography>
+          </TouchableOpacity>
+        </View>
+      }
+      contentContainerStyle={{ gap: spacing(32) }}
+      content={{ paddingHorizontal: spacing(20), paddingTop: spacing(64) }}
+    >
+      <View style={{ gap: spacing(60) }}>
+        <View />
 
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: spacing(8),
-                  }}
-                >
-                  <Checkbox checked={true} />
-                  <Typography variant="body">
-                    Introdução à biblioteca Jest
-                  </Typography>
-                </View>
+        <View style={{ gap: spacing(16) }}>
+          <Typography variant="label" style={{ color: colors.text.secondary }}>
+            Atividade a fazer:
+          </Typography>
+          <Typography variant="h1">{task.title}</Typography>
+        </View>
 
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: spacing(8),
-                  }}
-                >
-                  <Checkbox checked={false} />
-                  <Typography variant="body">
-                    Introdução à biblioteca Jest
-                  </Typography>
-                </View>
-              </>
-            )}
+        <View style={{ gap: spacing(16) }}>
+          <Typography variant="label" style={{ color: colors.text.secondary }}>
+            Descrição da atividade:
+          </Typography>
+          <Typography variant="subtitle">{task.description}</Typography>
+        </View>
 
-            <View />
+        <View style={{ gap: spacing(16) }}>
+          <Typography variant="label" style={{ color: colors.text.secondary }}>
+            Passo a passo:
+          </Typography>
 
-            <View style={{ gap: spacing(8) }}>
-              {!checked && (
-                <TouchableOpacity
-                  onPress={requestComplete}
-                  style={{
-                    backgroundColor: "#39A304",
-                    height: 30,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 16,
-                  }}
-                >
-                  <Typography
-                    variant="body"
-                    style={{ color: "#FFFFFF", fontWeight: "600" }}
-                  >
-                    Concluir atividade
-                  </Typography>
-                </TouchableOpacity>
-              )}
+          <View style={{ gap: spacing(16) }}>
+            <ProgressBar progress={50} />
 
-              <TouchableOpacity
-                onPress={requestDelete}
-                style={{
-                  backgroundColor: "#F05069",
-                  height: 30,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 16,
-                }}
-              >
-                <Typography
-                  variant="body"
-                  style={{ color: "#FFFFFF", fontWeight: "600" }}
-                >
-                  Deletar atividade
-                </Typography>
-              </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: spacing(8),
+              }}
+            >
+              <Checkbox checked={true} />
+              <Typography variant="body">
+                Introdução à biblioteca Jest
+              </Typography>
             </View>
-          </>
-        )}
-      </Card>
+
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: spacing(8),
+              }}
+            >
+              <Checkbox checked={false} />
+              <Typography variant="body">
+                Introdução à biblioteca Jest
+              </Typography>
+            </View>
+          </View>
+        </View>
+      </View>
 
       <BottomSheet
         ref={sheetRef}
@@ -235,6 +237,6 @@ export default function TaskCard({ task, onPress }: TaskCardProps) {
           </View>
         </BottomSheetView>
       </BottomSheet>
-    </>
+    </ScrollWrapper>
   );
 }

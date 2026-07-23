@@ -1,4 +1,4 @@
-import Feather from "@react-native-vector-icons/feather";
+import Lucide from "@react-native-vector-icons/lucide";
 import { Tabs } from "expo-router";
 
 export default function TabsLayout() {
@@ -10,17 +10,27 @@ export default function TabsLayout() {
           title: "Início",
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <Feather name="home" size={22} color={color} />
+            <Lucide name="home" size={22} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="tasks"
+        options={{
+          title: "Tasks",
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Lucide name="clock-check" size={22} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="setup"
         options={{
-          title: "Preferências",
+          title: "Configurações",
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <Feather name="sliders" size={22} color={color} />
+            <Lucide name="sliders" size={22} color={color} />
           ),
         }}
       />
@@ -30,7 +40,7 @@ export default function TabsLayout() {
           title: "Perfil",
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <Feather name="user" size={22} color={color} />
+            <Lucide name="user" size={22} color={color} />
           ),
         }}
       />

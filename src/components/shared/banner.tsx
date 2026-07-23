@@ -1,23 +1,32 @@
-import { useSpacing } from "@/hooks/useSpacing";
 import { ImageBackground, View } from "react-native";
 import Typography from "../ui/typography";
 
 interface BannerProps {
   value?: string;
   title: string;
+  variant?: "home" | "history";
+  height?: number;
 }
 
-export default function Banner({ title, value }: BannerProps) {
-  const spacing = useSpacing();
+export default function Banner({
+  title,
+  value,
+  variant = "home",
+  height,
+}: BannerProps) {
+  const IMAGES = {
+    home: require("@/assets/images/home-banner.png"),
+    history: require("@/assets/images/history-banner.png"),
+  };
 
   return (
     <ImageBackground
-      source={require("@/assets/images/home-banner.png")}
+      source={IMAGES[variant]}
       style={{
-        height: 133,
+        flex: 1,
+        height: height ?? 200,
         justifyContent: "space-around",
-        paddingHorizontal: spacing(28),
-        paddingVertical: spacing(16),
+        paddingHorizontal: 16,
       }}
       resizeMode="cover"
       borderRadius={20}

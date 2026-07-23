@@ -38,9 +38,7 @@ export default function SetupCard<k extends SetupListKey>({
         containerStyle={{ borderRadius: 10 }}
       />
 
-      <View
-        style={{ flexDirection: "row", flexWrap: "wrap", gap: spacing(8) }}
-      >
+      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: spacing(8) }}>
         {list.map((item) => {
           const isCurrentItem = currentItem === item;
 
@@ -51,17 +49,15 @@ export default function SetupCard<k extends SetupListKey>({
               style={{
                 width: "48%",
                 height: 40,
-                backgroundColor: "#EAEAEA",
-                justifyContent: "flex-end",
+                backgroundColor: "#FFF",
+                justifyContent: "center",
                 padding: spacing(6),
                 borderRadius: 10,
                 borderWidth: isCurrentItem ? 3 : 1,
                 borderColor: isCurrentItem ? "#39A304" : borderColor,
               }}
             >
-              <Typography variant="bodySmall">
-                {preferencesNames[item]}
-              </Typography>
+              <Typography variant="body">{preferencesNames[item]}</Typography>
             </TouchableOpacity>
           );
         })}
