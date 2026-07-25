@@ -4,6 +4,7 @@ import { setupReducer } from "@/modules/setup/store/slices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
+  createMigrate,
   FLUSH,
   PAUSE,
   PERSIST,
@@ -14,9 +15,26 @@ import {
   REHYDRATE,
 } from "redux-persist";
 
+const migrations = {
+  1: (state: any) => {
+    if (!state?.setup?.setup?.feedback) {
+      return state;
+    }
+
+    const { soundConfirmation, ...feedback } = state.setup.setup.feedback;
+
+    return {
+      ...state,
+      setup: { ...state.setup, setup: { ...state.setup.setup, feedback } },
+    };
+  },
+};
+
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
+  version: 1,
+  migrate: createMigrate(migrations, { debug: __DEV__ }),
 };
 
 const rootReducer = combineReducers({
