@@ -37,12 +37,14 @@ export function useTask() {
     ).unwrap();
 
     sheetRef.current?.close();
+    reset();
 
     return task;
   };
 
   const deleteTask = async (taskId: string) => {
-    dispatch(actions.deleteTask({ userId: user?.uid ?? "", taskId }));
+    await dispatch(actions.deleteTask({ userId: user?.uid ?? "", taskId }));
+    getTasks();
   };
 
   const updateTask = async (formTask: FormTask, taskId: string) => {
@@ -59,6 +61,7 @@ export function useTask() {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<any>({
     resolver: zodResolver(taskSchema),
     defaultValues: {
@@ -105,5 +108,6 @@ export function useTask() {
     query,
     setQuery,
     filteredTasks,
+    reset,
   };
 }

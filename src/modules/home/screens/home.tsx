@@ -50,12 +50,12 @@ export default function Home() {
         >
           <Banner
             title="Tarefas Pendentes"
-            value={String(pendingTasks.length || "")}
+            value={String(pendingTasks.length || "0")}
           />
 
           <Banner
             title="Tarefas Concluidas"
-            value={String(completedTasks.length || "")}
+            value={String(completedTasks.length || "0")}
             variant="history"
           />
         </View>

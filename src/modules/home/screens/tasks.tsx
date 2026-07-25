@@ -7,7 +7,7 @@ import { ITask } from "@/domain/entities/task";
 import { useSpacing } from "@/hooks/useSpacing";
 import { router } from "expo-router";
 import { useEffect } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import CreateTask from "../components/create-task";
 import { useTask } from "../hooks/useTask";
 
@@ -48,12 +48,6 @@ export default function Tasks() {
       >
         <View style={{ gap: spacing(16) }}>
           <View />
-
-          <Typography variant="subtitle">Minhas atividades</Typography>
-
-          <TouchableOpacity onPress={() => console.log("sadasdsa")}>
-            <Text>sddasdads</Text>
-          </TouchableOpacity>
 
           {filteredTasks.length &&
             filteredTasks.map((task) => (

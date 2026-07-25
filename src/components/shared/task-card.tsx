@@ -8,8 +8,6 @@ import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
 import { useRef, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import Card from "../ui/card";
-import { Checkbox } from "../ui/checkbox";
-import { ProgressBar } from "../ui/progress-bar";
 import Typography from "../ui/typography";
 
 interface TaskCardProps {
@@ -76,87 +74,11 @@ export default function TaskCard({ task, onPress }: TaskCardProps) {
         >
           <View style={{ gap: spacing(4) }}>
             <Typography variant="subtitle">{title}</Typography>
-            <Typography variant="bodySmall">{description}</Typography>
+            <Typography variant="bodySmall" numberOfLines={1}>
+              {description}
+            </Typography>
           </View>
         </TouchableOpacity>
-
-        {!isCollapsed && (
-          <>
-            {steps && steps.length && (
-              <>
-                <ProgressBar progress={50} />
-
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: spacing(8),
-                  }}
-                >
-                  <Checkbox checked={true} />
-                  <Typography variant="body">
-                    Introdução à biblioteca Jest
-                  </Typography>
-                </View>
-
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: spacing(8),
-                  }}
-                >
-                  <Checkbox checked={false} />
-                  <Typography variant="body">
-                    Introdução à biblioteca Jest
-                  </Typography>
-                </View>
-              </>
-            )}
-
-            <View />
-
-            <View style={{ gap: spacing(8) }}>
-              {!checked && (
-                <TouchableOpacity
-                  onPress={requestComplete}
-                  style={{
-                    backgroundColor: "#39A304",
-                    height: 30,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 16,
-                  }}
-                >
-                  <Typography
-                    variant="body"
-                    style={{ color: "#FFFFFF", fontWeight: "600" }}
-                  >
-                    Concluir atividade
-                  </Typography>
-                </TouchableOpacity>
-              )}
-
-              <TouchableOpacity
-                onPress={requestDelete}
-                style={{
-                  backgroundColor: "#F05069",
-                  height: 30,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 16,
-                }}
-              >
-                <Typography
-                  variant="body"
-                  style={{ color: "#FFFFFF", fontWeight: "600" }}
-                >
-                  Deletar atividade
-                </Typography>
-              </TouchableOpacity>
-            </View>
-          </>
-        )}
       </Card>
 
       <BottomSheet

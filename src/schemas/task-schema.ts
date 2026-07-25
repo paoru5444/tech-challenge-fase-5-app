@@ -8,7 +8,7 @@ export const taskSchema = z.object({
   description: z
     .string()
     .min(1, "Descrição deve ser preenchda")
-    .max(40, "Limite de caracteres excedido"),
+    .max(400, "Limite de caracteres excedido"),
 });
 // export const formInSchema = z.object({
 //   amount: z.coerce.number("Use números").min(1, "O valor deve ser preenchido"),

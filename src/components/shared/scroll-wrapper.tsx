@@ -26,6 +26,7 @@ export default function ScrollWrapper({
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
+          paddingVertical: 24,
           ...contentContainerStyle,
         }}
       >
