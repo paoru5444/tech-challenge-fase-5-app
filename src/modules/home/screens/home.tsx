@@ -11,7 +11,8 @@ import CreateTask from "../components/create-task";
 import { useTask } from "../hooks/useTask";
 
 export default function Home() {
-  const { getTasks, pendingTasks, completedTasks, lastTasks } = useTask();
+  const { getTasks, pendingTasks, completedTasks, lastTasks, goToTaskDetails } =
+    useTask();
 
   const spacing = useSpacing();
 
@@ -81,7 +82,13 @@ export default function Home() {
           <View />
 
           {lastTasks.length &&
-            lastTasks.map((task) => <TaskCard task={task} key={task.id} />)}
+            lastTasks.map((task) => (
+              <TaskCard
+                task={task}
+                key={task.id}
+                onPress={() => goToTaskDetails(task)}
+              />
+            ))}
         </View>
       </ScrollWrapper>
 

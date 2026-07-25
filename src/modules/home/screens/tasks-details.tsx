@@ -24,8 +24,10 @@ export default function TasksDetails() {
   const cancelBorderColor = useContrastColor("#EAEAEA", "#000000");
   const [pendingAction, setPendingAction] = useState<PendingAction>(null);
 
+  const isChecked = String(task.checked) === "true";
+
   const completeTask = () =>
-    updateTask({ ...task, checked: !task.checked }, task.id);
+    updateTask({ ...task, checked: !isChecked }, task.id);
 
   const requestComplete = () => {
     if (extraConfirmation) {
@@ -33,6 +35,7 @@ export default function TasksDetails() {
       sheetRef.current?.snapToIndex(0);
     } else {
       completeTask();
+      router.back();
     }
   };
 
@@ -42,16 +45,17 @@ export default function TasksDetails() {
       sheetRef.current?.snapToIndex(0);
     } else {
       deleteTask(task?.id);
-      router.replace("/tasks");
+      router.back();
     }
   };
 
   const handleConfirm = () => {
     if (pendingAction === "complete") {
       completeTask();
+      router.replace("/tasks");
     } else if (pendingAction === "delete") {
       deleteTask(task?.id);
-      router.replace("/tasks");
+      router.back();
     }
     sheetRef.current?.snapToIndex(-1);
   };

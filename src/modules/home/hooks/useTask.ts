@@ -1,9 +1,10 @@
-import { FormTask } from "@/domain/entities/task";
+import { FormTask, ITask } from "@/domain/entities/task";
 import { selectUser } from "@/modules/auth/store/selectors";
 import { taskSchema } from "@/schemas/task-schema";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import BottomSheet from "@expo/ui/community/bottom-sheet";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { router } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as actions from "../store/actions";
@@ -48,13 +49,14 @@ export function useTask() {
   };
 
   const updateTask = async (formTask: FormTask, taskId: string) => {
-    dispatch(
+    await dispatch(
       actions.updateTask({
         userId: user?.uid ?? "",
         taskId,
         formData: formTask,
       }),
     );
+    getTasks();
   };
 
   const {
@@ -92,6 +94,10 @@ export function useTask() {
     );
   }, [tasks, search]);
 
+  const goToTaskDetails = (task: ITask) => {
+    router.push({ pathname: "/task-details", params: task });
+  };
+
   return {
     getTasks,
     addTask,
@@ -109,5 +115,6 @@ export function useTask() {
     setQuery,
     filteredTasks,
     reset,
+    goToTaskDetails,
   };
 }

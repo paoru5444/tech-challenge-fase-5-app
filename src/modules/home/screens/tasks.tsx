@@ -3,26 +3,21 @@ import TaskCard from "@/components/shared/task-card";
 import Input from "@/components/ui/input";
 import Typography from "@/components/ui/typography";
 import { colors } from "@/constants/colors";
-import { ITask } from "@/domain/entities/task";
 import { useSpacing } from "@/hooks/useSpacing";
-import { router } from "expo-router";
 import { useEffect } from "react";
 import { Text, View } from "react-native";
 import CreateTask from "../components/create-task";
 import { useTask } from "../hooks/useTask";
 
 export default function Tasks() {
-  const { getTasks, query, setQuery, filteredTasks } = useTask();
+  const { getTasks, query, setQuery, filteredTasks, goToTaskDetails } =
+    useTask();
 
   const spacing = useSpacing();
 
   useEffect(() => {
     getTasks();
   }, [getTasks]);
-
-  const goToTaskDetails = (task: ITask) => {
-    router.push({ pathname: "/task-details", params: task });
-  };
 
   return (
     <>
