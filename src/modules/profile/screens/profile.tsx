@@ -74,8 +74,8 @@ export default function ProfileScreen() {
       <Card>
         <TitleDisplay
           user={user}
-          title="João Lucas Pereira de Almeida"
-          description="40 anos"
+          title={user?.displayName ?? ""}
+          description={user?.age ? `${user?.age} anos` : ""}
         />
       </Card>
 

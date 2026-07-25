@@ -1,12 +1,14 @@
 import { IUser, IUserCredentials } from "@/domain/entities/user";
-import { auth } from "@/firebase/config";
+import { auth, db } from "@/firebase/config";
 import {
   User,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
-function toSerializableUser(user: User): IUser {
+function toSerializableUser(user: User, age?: number): IUser {
   return {
     uid: user.uid,
     email: user.email,
@@ -17,6 +19,7 @@ function toSerializableUser(user: User): IUser {
     isAnonymous: user.isAnonymous,
     providerId: user.providerId,
     tenantId: user.tenantId,
+    age,
   };
 }
 
@@ -26,9 +29,15 @@ export class FirebaseAuth {
     return toSerializableUser(res.user);
   }
 
-  async signUp({ email, password }: IUserCredentials) {
+  async signUp({ email, password, name, age }: IUserCredentials) {
     const res = await createUserWithEmailAndPassword(auth, email, password);
-    return toSerializableUser(res.user);
+
+    if (name) {
+      await updateProfile(res.user, { displayName: name });
+    }
+
+    await setDoc(doc(db, "users", res.user.uid), { age }, { merge: true });
+    return { ...toSerializableUser(res.user, age), displayName: name ?? null };
   }
 
   async logout() {

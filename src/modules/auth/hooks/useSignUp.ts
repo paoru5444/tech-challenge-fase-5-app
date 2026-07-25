@@ -8,9 +8,11 @@ import * as actions from "../store/actions";
 import { isSignUpInProgress } from "../store/selectors";
 
 export interface SignUpForm {
+  name: string;
   email: string;
   password: string;
   passwordConfirm: string;
+  age: string;
 }
 
 export function useSignUp() {
@@ -21,8 +23,9 @@ export function useSignUp() {
     router.push("/sign-in");
   }
 
-  async function signUp(credentials: IUserCredentials) {
+  async function signUp(form: SignUpForm) {
     try {
+      const credentials: IUserCredentials = { ...form, age: Number(form.age) };
       const result = await dispatch(actions.signUp(credentials));
 
       if (actions.signUp.fulfilled.match(result)) {
@@ -40,8 +43,10 @@ export function useSignUp() {
   } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      age: "",
     },
   });
 

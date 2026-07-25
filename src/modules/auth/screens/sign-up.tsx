@@ -21,12 +21,29 @@ export function SignUpScreen() {
 
       <View style={{ paddingHorizontal: spacing(16) }}>
         <InputControl
+          label="Digite seu nome"
+          placeholder="John Doe"
+          control={control}
+          error={errors["name"]}
+          name="name"
+        />
+
+        <InputControl
           label="Digite seu email"
           placeholder="john.doe@mail.com"
           autoCapitalize="none"
           control={control}
           error={errors["email"]}
           name="email"
+        />
+
+        <InputControl
+          label="Digite sua idade"
+          placeholder="30"
+          keyboardType="numeric"
+          control={control}
+          error={errors["age"]}
+          name="age"
         />
 
         <InputControl

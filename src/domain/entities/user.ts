@@ -8,12 +8,15 @@ export interface IUser {
   isAnonymous: boolean;
   providerId: string;
   tenantId: string | null;
+  age?: number;
 }
 
 export interface IUserCredentials {
+  name?: string;
   email: string;
   password: string;
   passwordConfirm?: string;
+  age?: number;
 }
 
 export function validatePassword({
