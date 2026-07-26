@@ -1,3 +1,4 @@
+import { useFeedbackToast } from "@/components/shared/feedback-toast";
 import { FormTask, ITask } from "@/domain/entities/task";
 import { selectUser } from "@/modules/auth/store/selectors";
 import { taskSchema } from "@/schemas/task-schema";
@@ -14,6 +15,7 @@ export function useTask() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const tasks = useAppSelector(selectTasks);
+  const { notify } = useFeedbackToast();
 
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState("");
@@ -39,6 +41,7 @@ export function useTask() {
 
     sheetRef.current?.close();
     reset();
+    notify("Atividade criada com sucesso!");
 
     return task;
   };
@@ -46,6 +49,7 @@ export function useTask() {
   const deleteTask = async (taskId: string) => {
     await dispatch(actions.deleteTask({ userId: user?.uid ?? "", taskId }));
     getTasks();
+    notify("Atividade excluída.", "danger");
   };
 
   const updateTask = async (formTask: FormTask, taskId: string) => {
