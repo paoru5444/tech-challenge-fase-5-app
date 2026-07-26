@@ -1,4 +1,5 @@
 import { theme } from "@/constants/theme";
+import { useAnimationsEnabled } from "@/hooks/useAnimationsEnabled";
 import { useContrastColor } from "@/hooks/useContrastColor";
 import { useEffect, useRef } from "react";
 import { Animated, StyleSheet, View, ViewStyle } from "react-native";
@@ -39,12 +40,14 @@ export function ProgressBar({
     "#4A4844",
   );
   const labelColor = useContrastColor(theme.colors.text.secondary, "#000000");
+  const animationsEnabled = useAnimationsEnabled();
 
   const clamped = Math.max(0, Math.min(100, progress));
   const widthAnim = useRef(new Animated.Value(0)).current;
+  const shouldAnimate = animated && animationsEnabled;
 
   useEffect(() => {
-    if (animated) {
+    if (shouldAnimate) {
       Animated.timing(widthAnim, {
         toValue: clamped,
         duration: 400,
@@ -53,7 +56,7 @@ export function ProgressBar({
     } else {
       widthAnim.setValue(clamped);
     }
-  }, [clamped, animated]);
+  }, [clamped, shouldAnimate]);
 
   const widthInterpolated = widthAnim.interpolate({
     inputRange: [0, 100],

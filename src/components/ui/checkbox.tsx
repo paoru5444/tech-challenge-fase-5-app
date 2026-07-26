@@ -1,6 +1,15 @@
 import { theme } from "@/constants/theme";
+import { useAnimationsEnabled } from "@/hooks/useAnimationsEnabled";
 import { useContrastColor } from "@/hooks/useContrastColor";
-import { Pressable, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { useEffect } from "react";
+import { Pressable, StyleSheet, ViewStyle } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSequence,
+  withTiming,
+  ZoomIn,
+} from "react-native-reanimated";
 import Typography from "./typography";
 
 interface CheckboxProps {
@@ -33,6 +42,21 @@ export function Checkbox({
     theme.colors.text.secondary,
     "#000000",
   );
+  const animationsEnabled = useAnimationsEnabled();
+  const scale = useSharedValue(1);
+
+  useEffect(() => {
+    if (checked && animationsEnabled) {
+      scale.value = withSequence(
+        withTiming(1.15, { duration: 90 }),
+        withTiming(1, { duration: 90 }),
+      );
+    }
+  }, [checked, animationsEnabled, scale]);
+
+  const boxAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
 
   return (
     <Pressable
@@ -43,7 +67,7 @@ export function Checkbox({
       accessibilityRole="checkbox"
       accessibilityState={{ checked, disabled }}
     >
-      <View
+      <Animated.View
         style={[
           styles.box,
           {
@@ -53,12 +77,18 @@ export function Checkbox({
           },
           checked ? styles.boxChecked : [styles.boxUnchecked, { borderColor }],
           disabled && styles.boxDisabled,
+          boxAnimatedStyle,
         ]}
       >
         {checked && (
-          <Text style={[styles.check, { fontSize: size * 0.7 }]}>✓</Text>
+          <Animated.Text
+            entering={animationsEnabled ? ZoomIn.duration(150) : undefined}
+            style={[styles.check, { fontSize: size * 0.7 }]}
+          >
+            ✓
+          </Animated.Text>
         )}
-      </View>
+      </Animated.View>
 
       {label ? (
         <Typography
