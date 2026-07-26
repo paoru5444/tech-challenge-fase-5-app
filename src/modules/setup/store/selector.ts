@@ -28,6 +28,10 @@ export const selectExtraConfirmation = (state: RootState) => {
   return state.setup.setup.feedback.extraConfirmation;
 };
 
+export const selectVisualFeedback = (state: RootState) => {
+  return state.setup.setup.feedback.visualFeedback;
+};
+
 export const selectHasSeenWalkthrough = (state: RootState) => {
   return state.setup.setup.hasSeenWalkthrough;
 };

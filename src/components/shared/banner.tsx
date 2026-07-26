@@ -15,8 +15,8 @@ export default function Banner({
   height,
 }: BannerProps) {
   const IMAGES = {
-    home: require("@/assets/images/home-banner.png"),
-    history: require("@/assets/images/history-banner.png"),
+    home: require("@/assets/images/banner-pending.png"),
+    history: require("@/assets/images/banner-completed.png"),
   };
 
   return (
