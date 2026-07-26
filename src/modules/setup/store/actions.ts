@@ -16,3 +16,4 @@ export const updateInterfaceMode = createAction<SetupType["interfaceMode"]>(
 export const updateFeedback = createAction<Partial<SetupType["feedback"]>>(
   "setup/feedback",
 );
+export const completeWalkthrough = createAction("setup/completeWalkthrough");

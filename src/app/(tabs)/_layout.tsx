@@ -17,7 +17,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="tasks"
         options={{
-          title: "Tasks",
+          title: "Atividades",
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <Lucide name="clock-check" size={22} color={color} />

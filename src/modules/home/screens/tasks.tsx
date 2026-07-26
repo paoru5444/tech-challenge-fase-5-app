@@ -1,10 +1,12 @@
+import HelpButton from "@/components/shared/help-button";
+import HelpWalktrough from "@/components/shared/help-walktrough";
 import ScrollWrapper from "@/components/shared/scroll-wrapper";
 import TaskCard from "@/components/shared/task-card";
 import Input from "@/components/ui/input";
 import Typography from "@/components/ui/typography";
 import { colors } from "@/constants/colors";
 import { useSpacing } from "@/hooks/useSpacing";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import CreateTask from "../components/create-task";
 import { useTask } from "../hooks/useTask";
@@ -12,6 +14,7 @@ import { useTask } from "../hooks/useTask";
 export default function Tasks() {
   const { getTasks, query, setQuery, filteredTasks, goToTaskDetails } =
     useTask();
+  const [showHelp, setShowHelp] = useState(false);
 
   const spacing = useSpacing();
 
@@ -53,9 +56,20 @@ export default function Tasks() {
               />
             ))}
         </View>
+
+        {filteredTasks.length <= 0 && (
+          <HelpButton onPress={() => setShowHelp(true)} />
+        )}
       </ScrollWrapper>
 
       <CreateTask />
+
+      <HelpWalktrough
+        onFinish={() => {
+          setShowHelp(false);
+        }}
+        visible={showHelp}
+      />
     </>
   );
 }

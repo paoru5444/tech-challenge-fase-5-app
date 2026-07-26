@@ -28,12 +28,25 @@ const migrations = {
       setup: { ...state.setup, setup: { ...state.setup.setup, feedback } },
     };
   },
+  2: (state: any) => {
+    if (!state?.setup?.setup) {
+      return state;
+    }
+
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        setup: { ...state.setup.setup, hasSeenWalkthrough: false },
+      },
+    };
+  },
 };
 
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  version: 1,
+  version: 2,
   migrate: createMigrate(migrations, { debug: __DEV__ }),
 };
 

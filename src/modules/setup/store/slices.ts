@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  completeWalkthrough,
   updateContrastLevel,
   updateFeedback,
   updateFontSize,
@@ -18,6 +19,7 @@ export type SetupType = {
   spacementSize: "small" | "default" | "big";
   interfaceMode: "simple" | "default";
   feedback: FeedbackType;
+  hasSeenWalkthrough: boolean;
 };
 
 export interface SetupState {
@@ -34,6 +36,7 @@ const initialState: SetupState = {
       visualFeedback: true,
       extraConfirmation: true,
     },
+    hasSeenWalkthrough: false,
   },
 };
 
@@ -57,6 +60,9 @@ export const setupSlice = createSlice({
       })
       .addCase(updateFeedback, (state, action) => {
         state.setup.feedback = { ...state.setup.feedback, ...action.payload };
+      })
+      .addCase(completeWalkthrough, (state) => {
+        state.setup.hasSeenWalkthrough = true;
       });
   },
 });
