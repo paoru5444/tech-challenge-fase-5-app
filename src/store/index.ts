@@ -46,14 +46,14 @@ const migrations = {
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  version: 2,
+  version: 3,
   migrate: createMigrate(migrations, { debug: __DEV__ }),
 };
 
 const rootReducer = combineReducers({
   user: authenticatorReducer,
   task: taskReducer,
-  setup: setupReducer
+  setup: setupReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

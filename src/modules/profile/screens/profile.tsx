@@ -43,12 +43,8 @@ export default function ProfileScreen() {
   };
 
   const preferencesList = useMemo(() => {
-    const normalizedPreferences = {
-      ...preferences,
-      ...preferences.feedback,
-    };
-
-    delete normalizedPreferences.feedback;
+    const { feedback, hasSeenWalkthrough, ...rest } = preferences;
+    const normalizedPreferences = { ...rest, ...feedback };
 
     return Object.entries(normalizedPreferences);
   }, [preferences]);
@@ -95,13 +91,25 @@ export default function ProfileScreen() {
             }}
           >
             <View
-              style={{ flexDirection: "row", alignItems: "center", gap: spacing(10) }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: spacing(10),
+              }}
             >
-              <Lucide name="circle-help" size={20} color={colors.brand.primary} />
+              <Lucide
+                name="circle-help"
+                size={20}
+                color={colors.brand.primary}
+              />
               <Typography variant="subtitle">Como usar o app</Typography>
             </View>
 
-            <Lucide name="chevron-right" size={20} color={colors.text.secondary} />
+            <Lucide
+              name="chevron-right"
+              size={20}
+              color={colors.text.secondary}
+            />
           </Pressable>
         </Card>
 

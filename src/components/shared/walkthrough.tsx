@@ -12,7 +12,6 @@ type WalkthroughImage = ComponentProps<typeof Image>["source"];
 type WalkthroughIcon = ComponentProps<typeof Lucide>["name"];
 
 export interface WalkthroughStep {
-  /** Ilustração do step. Use `icon` quando não houver uma imagem dedicada. */
   image?: WalkthroughImage;
   icon?: WalkthroughIcon;
   title: string;
