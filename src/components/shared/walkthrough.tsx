@@ -57,7 +57,13 @@ export default function Walkthrough({
       }}
     >
       {step.image && (
-        <Image source={step.image} style={styles.image} contentFit="contain" />
+        <View style={styles.iconContainer}>
+          <Image
+            source={step.image}
+            style={styles.image}
+            contentFit="contain"
+          />
+        </View>
       )}
 
       {!step.image && step.icon && (
@@ -111,7 +117,8 @@ export default function Walkthrough({
 const styles = StyleSheet.create({
   image: {
     width: "100%",
-    height: 280,
+    height: 360,
+    top: 30,
   },
   iconContainer: {
     width: "100%",

@@ -1,3 +1,4 @@
+import { useFeedbackToast } from "@/components/shared/feedback-toast";
 import Header from "@/components/shared/header";
 import ScrollWrapper from "@/components/shared/scroll-wrapper";
 import Typography from "@/components/ui/typography";
@@ -24,10 +25,16 @@ export default function TasksDetails() {
   const cancelBorderColor = useContrastColor("#EAEAEA", "#000000");
   const [pendingAction, setPendingAction] = useState<PendingAction>(null);
 
+  const { notify } = useFeedbackToast();
+
   const isChecked = String(task.checked) === "true";
 
-  const completeTask = () =>
+  const completeTask = () => {
     updateTask({ ...task, checked: !isChecked }, task.id);
+    notify(
+      isChecked ? "Atividade reaberta." : "Atividade concluída com sucesso!",
+    );
+  };
 
   const requestComplete = () => {
     if (extraConfirmation) {
