@@ -1,56 +1,127 @@
-# Welcome to your Expo app 👋
+# Seja bem vindo ao SeniorEase 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Uma ferramenta voltada para auxiliar pessoas idosas a organizarem melhor a sua rotina de trabalho e estudos de forma simples e direta ao ponto.
 
-## Get started
+<div align="left">
+  <img src="./assets/screenshots/1.png" width="19%"/>
+  <img src="./assets/screenshots/2.png" width="19%"/>
+  <img src="./assets/screenshots/3.png" width="19%"/>
+  <img src="./assets/screenshots/4.png" width="19%"/>
+  <img src="./assets/screenshots/5.png" width="19%"/>
+</div>
+<div align="left">
+  <img src="./assets/screenshots/6.png" width="19%"/>
+  <img src="./assets/screenshots/7.png" width="19%"/>
+  <img src="./assets/screenshots/8.png" width="19%"/>
+  <img src="./assets/screenshots/9.png" width="19%"/>
+  <img src="./assets/screenshots/10.png" width="19%"/>
+</div>
 
-1. Install dependencies
+---
+### Links:
+- **Repo**: [https://github.com/paoru5444/tech-challenge-fase-4](https://github.com/paoru5444/tech-challenge-fase-5-web)
+- **Figma**: https://www.figma.com/design/B4pqplFIx5BaW5QVH2MFf7/SeniorEase?node-id=234-505&t=Hq36IcOCuNyHtN5o-1
+- **Apresentação do Projeto**: https://www.youtube.com/watch?v=vOds35TRt5I
+---
 
-   ```bash
-   npm install
-   ```
+## Como começar
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+1. Instale as dependências
 ```bash
-npm run reset-project
+   npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+1. Faça um Pré Build
+```bash
+   npx expo prebuild --clean
+```
 
-### Other setup steps
+2. Inicie o app com android
+```bash
+   npx expo run:android
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+2. Ou inicie o app com ios
+```bash
+   npx expo run:ios
+```
 
-## Learn more
+2. Após fazer o build inicial, basta iniciar o expo
+```bash
+   npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Obs: As configurações do firebase já estão no projeto.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Na saída do terminal, você encontrará opções para abrir o app em:
 
-## Join the community
+- [Build de desenvolvimento](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Emulador Android](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [Simulador iOS](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), uma sandbox limitada para experimentar o desenvolvimento com Expo
 
-Join our community of developers creating universal apps.
+Você pode começar a desenvolver editando os arquivos dentro do diretório **app**. Este projeto utiliza [roteamento baseado em arquivos](https://docs.expo.dev/router/introduction).
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## Ferramentas
+
+- React JS
+- React Router
+- Vite
+- Firebase
+- Zod
+- React Hook Form
+- Redux Toolkit
+- Tailwind
+- Vitest
+- Playright
+
+---
+
+## Arquitetura
+
+O projeto foi construído com uma **arquitetura limpa** em conjunto com a **modular**, onde cada pasta dentro de `modules/` representa um módulo independente da aplicação, enquanto estrutura de Clean Architecture está distribuida dentro da pasta `app/`.
+
+### Estrutura dos módulos
+```
+src/
+|__app/
+  └── domain/
+          ├────── entities/
+          ├────── repositories/
+          ├────── usecases/
+  └── providers/
+  └── services/
+  └── modules/
+      └── <ModuleName>/
+          ├── screens
+          ├── components
+          ├── hooks
+          ├── store
+          ├────── actions.ts
+          ├────── slices.ts
+          ├────── selectors.ts
+```
+
+### Escalabilidade
+
+Essa estrutura torna o projeto preparado para crescer, seja para a adição de **novas features** ou para a inclusão de **novos integrantes** na equipe de desenvolvimento, sem que a organização do código seja comprometida. Os testes garantem a qualidade de operações essenciais e o ci/cd melhora o fluxo de entrega de novas features.
+
+---
+
+## Melhorias
+
+- Adicionar RichText na descrição da atividade
+- Adicionar sub-tarefas com check para atividades
+- Criar passo a passo mais detalhados
+- Adicionar data nas tarefas
+- Adicionar prazo nas tarefas
+- Segmetar ou agrupar tarefas
+- Adicionar progressbar para acompanhar execução de tarefas com sub-tarefas.
+- Adicionar mais testes de integração e unitários
+- Adicionar ferramenta de Tracking e Monitoramento como o Sentry
+
+---
+
+- Desenvolvido com o ❤️ por Paulo Roberto
