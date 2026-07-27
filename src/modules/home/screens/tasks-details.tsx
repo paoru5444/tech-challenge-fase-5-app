@@ -29,42 +29,49 @@ export default function TasksDetails() {
 
   const isChecked = String(task.checked) === "true";
 
-  const completeTask = () => {
-    updateTask({ ...task, checked: !isChecked }, task.id);
-    notify(
-      isChecked ? "Atividade reaberta." : "Atividade concluída com sucesso!",
-    );
+  const completeTask = async () => {
+    try {
+      await updateTask({ ...task, checked: !isChecked }, task.id);
+      notify(
+        isChecked ? "Atividade reaberta." : "Atividade concluída com sucesso!",
+      );
+      return true;
+    } catch {
+      notify("Não foi possível atualizar a atividade.", "danger");
+      return false;
+    }
   };
 
-  const requestComplete = () => {
+  const requestComplete = async () => {
     if (extraConfirmation) {
       setPendingAction("complete");
       sheetRef.current?.snapToIndex(0);
     } else {
-      completeTask();
-      router.back();
+      const success = await completeTask();
+      if (success) router.back();
     }
   };
 
-  const requestDelete = () => {
+  const requestDelete = async () => {
     if (extraConfirmation) {
       setPendingAction("delete");
       sheetRef.current?.snapToIndex(0);
     } else {
-      deleteTask(task?.id);
+      await deleteTask(task?.id);
       router.back();
     }
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (pendingAction === "complete") {
-      completeTask();
-      router.replace("/tasks");
+      const success = await completeTask();
+      sheetRef.current?.snapToIndex(-1);
+      if (success) router.replace("/tasks");
     } else if (pendingAction === "delete") {
-      deleteTask(task?.id);
+      await deleteTask(task?.id);
+      sheetRef.current?.snapToIndex(-1);
       router.back();
     }
-    sheetRef.current?.snapToIndex(-1);
   };
 
   const handleCancel = () => {

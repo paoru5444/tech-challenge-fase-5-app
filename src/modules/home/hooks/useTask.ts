@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import BottomSheet from "@expo/ui/community/bottom-sheet";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as actions from "../store/actions";
 import { selectTasks } from "../store/selectors";
@@ -30,9 +30,9 @@ export function useTask() {
 
   const sheetRef = useRef<BottomSheet>(null);
 
-  const getTasks = async () => {
+  const getTasks = useCallback(async () => {
     dispatch(actions.getTasks(user?.uid ?? ""));
-  };
+  }, [dispatch, user?.uid]);
 
   const addTask = async (data: FormTask) => {
     const task = await dispatch(
@@ -47,20 +47,20 @@ export function useTask() {
   };
 
   const deleteTask = async (taskId: string) => {
-    await dispatch(actions.deleteTask({ userId: user?.uid ?? "", taskId }));
-    getTasks();
+    await dispatch(
+      actions.deleteTask({ userId: user?.uid ?? "", taskId }),
+    ).unwrap();
     notify("Atividade excluída.", "danger");
   };
 
   const updateTask = async (formTask: FormTask, taskId: string) => {
-    await dispatch(
+    return await dispatch(
       actions.updateTask({
         userId: user?.uid ?? "",
         taskId,
         formData: formTask,
       }),
-    );
-    getTasks();
+    ).unwrap();
   };
 
   const {
